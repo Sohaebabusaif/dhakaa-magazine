@@ -21,7 +21,8 @@ export default async function Home() {
   const heroArticle = heroArticleData || {
     title: "GPT-5: نهاية عصر النماذج المتفرقة — ذكاء اصطناعي واحد يسمع ويرى ويقرأ",
     excerpt: "أعلن سام ألتمان أن OpenAI توحّد نماذجها المتعددة في نموذج موحد ضخم يُعالج النص والصورة والصوت في آنٍ واحد. GPT-5 لن يكون مجرد تطوير — بل إعادة تعريف كاملة لما يعنيه الذكاء الاصطناعي التوليدي.",
-    category: "تقنية الذكاء الاصطناعي"
+    category: "تقنية الذكاء الاصطناعي",
+    mainImage: { asset: { url: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1200&q=80" } }
   };
 
   const defaultTopArticles = [

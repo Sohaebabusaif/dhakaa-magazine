@@ -21,16 +21,19 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
         title: `نموذج تجريبي لخبر في قسم ${decodedSlug}`,
         excerpt: "هذا خبر افتراضي يظهر لأن القسم فارغ حالياً. يمكنك إضافة الأخبار الحقيقية من لوحة التحكم لتستبدل هذه الأخبار تلقائياً.",
         category: decodedSlug,
+        mainImage: { asset: { url: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?auto=format&fit=crop&w=800&q=80" } }
       },
       {
         title: `خبر افتراضي آخر عن ${decodedSlug}`,
         excerpt: "يمكنك كتابة تغطية واسعة ومفصلة هنا، وبمجرد رفع الصورة في لوحة التحكم ستظهر في الأعلى.",
         category: decodedSlug,
+        mainImage: { asset: { url: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80" } }
       },
       {
         title: `تقرير أسبوعي في قسم ${decodedSlug}`,
         excerpt: "الأرشيف وتصنيفات الأقسام تعمل الآن بشكل ديناميكي كامل وتنتظر محتواك الإبداعي.",
         category: decodedSlug,
+        mainImage: { asset: { url: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80" } }
       }
     ];
   }

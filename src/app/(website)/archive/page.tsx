@@ -20,13 +20,15 @@ export default async function ArchivePage() {
         title: "الأرشيف يعمل بنجاح (خبر تجريبي)",
         excerpt: "هذا الخبر يظهر بشكل افتراضي لأن الأرشيف فارغ حالياً. بمجرد إضافة أول خبر لك من لوحة التحكم، سيختفي هذا وتظهر أخبارك الحقيقية.",
         category: "أخبار عامة",
-        _createdAt: new Date().toISOString()
+        _createdAt: new Date().toISOString(),
+        mainImage: { asset: { url: "https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=800&q=80" } }
       },
       {
         title: "نموذج لمقالة مؤرشفة",
         excerpt: "جميع المقالات التي تنشرها في أي قسم ستظهر هنا في الأرشيف ليتمكن الزوار من العودة إليها لاحقاً.",
         category: "تطوير",
-        _createdAt: new Date(Date.now() - 86400000).toISOString()
+        _createdAt: new Date(Date.now() - 86400000).toISOString(),
+        mainImage: { asset: { url: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80" } }
       }
     ];
   }
