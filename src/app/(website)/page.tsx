@@ -7,41 +7,13 @@ import CurrentDate from "../../components/CurrentDate";
 export default async function Home() {
   // Fetch data from Sanity
   const breakingNewsData = await client.fetch(`*[_type == "breakingNews" && isActive == true]{title}`);
-  const heroArticleData = await client.fetch(`*[_type == "article" && isHero == true][0]{title, excerpt, slug, category, mainImage{asset->{url}}}`);
-  const topArticlesData = await client.fetch(`*[_type == "article" && isHero != true] | order(_createdAt desc)[0...4]{title, excerpt, slug, category, mainImage{asset->{url}}}`);
+  const heroArticle = await client.fetch(`*[_type == "article" && isHero == true][0]{title, excerpt, slug, category, mainImage{asset->{url}}}`);
+  const topArticles = await client.fetch(`*[_type == "article" && isHero != true] | order(_createdAt desc)[0...4]{title, excerpt, slug, category, mainImage{asset->{url}}}`);
 
-  // Fallbacks if Sanity database is empty (so the design doesn't break)
-  const defaultBreakingNews = [
-    { title: "أكاديمية الباب العالي تعلن عن مسابقة الابتكار العلمي لعام 2026" },
-    { title: "بدء التسجيل للنوادي الصيفية: البرمجة، الروبوتكس، والفنون" },
-    { title: "تهنئة خاصة لطلبة التوجيهي على تحقيق مراكز متقدمة على مستوى المملكة" }
-  ];
-  
-  const breakingNews = breakingNewsData.length > 0 ? breakingNewsData : defaultBreakingNews;
-  
-  const heroArticle = heroArticleData || {
-    title: "أكاديمية الباب العالي تطلق مختبر الذكاء الاصطناعي الأول من نوعه للطلاب",
-    excerpt: "في خطوة رائدة على مستوى التعليم، افتتحت أكاديمية الباب العالي للتميز مختبرها الجديد الذي سيتيح للطلبة استكشاف وتعلم تقنيات الذكاء الاصطناعي التوليدي والبرمجة المتقدمة بأسلوب تطبيقي.",
-    category: "قسم الذكاء الاصطناعي",
-    mainImage: { asset: { url: "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1200&q=80" } }
-  };
-
-  const defaultTopArticles = [
-    { category: "الريادة والابتكار", title: "مشاريع الريادة الطلابية تتألق في المعرض السنوي للأكاديمية", desc: "ابتكارات طلابية مبهرة تحل مشاكل بيئية وتقنية، ومستثمرون يشيدون بمستوى الإبداع لدى طلبة الباب العالي.", icon: "💡", color: "bg-dhakaa-accent text-dhakaa-secondary" },
-    { category: "قسم العلوم", title: "تجارب علمية مذهلة في أسبوع العلوم الطلابي", desc: "قسم العلوم ينظم سلسلة من التجارب التفاعلية التي تهدف إلى تبسيط المفاهيم المعقدة وربطها بالحياة اليومية للطلاب.", icon: "🔬", color: "bg-dhakaa-primary text-white" },
-    { category: "إعلانات الأكاديمية", title: "فتح باب التسجيل المبكر للعام الدراسي القادم بميزات استثنائية", desc: "الأكاديمية تعلن عن بدء استقبال طلبات الالتحاق وتوفر منحاً للطلبة المتميزين في التكنولوجيا والعلوم.", icon: "📢", color: "bg-dhakaa-secondary text-dhakaa-dark" },
-    { category: "الأنشطة المدرسية", title: "يوم رياضي وثقافي حافل يجمع الطلاب والمعلمين", desc: "فعاليات متنوعة ومسابقات شيقة سادت فيها الروح الرياضية، وتكريم للفرق الفائزة في دوري المدرسة.", icon: "🏆", color: "bg-dhakaa-dark text-white" }
-  ];
-
-  const topArticles = topArticlesData.length > 0 
-    ? topArticlesData.map((a: any) => ({
-        category: a.category || "أخبار الأكاديمية",
-        title: a.title,
-        desc: a.excerpt,
-        icon: "📰",
-        color: "bg-dhakaa-primary/10 text-dhakaa-primary"
-      }))
-    : defaultTopArticles;
+  const hasBreakingNews = breakingNewsData && breakingNewsData.length > 0;
+  const hasHeroArticle = !!heroArticle;
+  const hasTopArticles = topArticles && topArticles.length > 0;
+  const isCompletelyEmpty = !hasHeroArticle && !hasTopArticles;
 
   return (
     <main className="min-h-screen bg-dhakaa-bg font-cairo text-dhakaa-text selection:bg-dhakaa-primary/20">
@@ -95,19 +67,21 @@ export default async function Home() {
       </nav>
 
       {/* ══ BREAKING NEWS TICKER ══ */}
-      <div className="bg-dhakaa-accent border-b-2 border-dhakaa-primary relative overflow-hidden flex items-center h-10">
-        <div className="bg-dhakaa-primary text-dhakaa-bg text-[11px] font-bold px-4 h-full flex items-center z-10 gap-1.5 whitespace-nowrap absolute right-0 shadow-lg">
-          <span className="animate-pulse w-2 h-2 bg-white rounded-full"></span>
-          عاجل
-        </div>
-        <div className="overflow-hidden w-full ml-4 pl-4">
-          <div className="animate-marquee whitespace-nowrap text-dhakaa-secondary text-xs pr-24 flex gap-12">
-            {breakingNews.map((news: any, index: number) => (
-              <span key={index}><strong className="text-white">جديد:</strong> {news.title}</span>
-            ))}
+      {hasBreakingNews && (
+        <div className="bg-dhakaa-accent border-b-2 border-dhakaa-primary relative overflow-hidden flex items-center h-10">
+          <div className="bg-dhakaa-primary text-dhakaa-bg text-[11px] font-bold px-4 h-full flex items-center z-10 gap-1.5 whitespace-nowrap absolute right-0 shadow-lg">
+            <span className="animate-pulse w-2 h-2 bg-white rounded-full"></span>
+            عاجل
+          </div>
+          <div className="overflow-hidden w-full ml-4 pl-4">
+            <div className="animate-marquee whitespace-nowrap text-dhakaa-secondary text-xs pr-24 flex gap-12">
+              {breakingNewsData.map((news: any, index: number) => (
+                <span key={index}><strong className="text-white">جديد:</strong> {news.title}</span>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
       {/* ══ MAIN GRID LAYOUT ══ */}
       <div className="max-w-7xl mx-auto px-4 lg:px-8 py-8 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
@@ -115,81 +89,76 @@ export default async function Home() {
         {/* === RIGHT COLUMN (Main Content) === */}
         <div className="lg:col-span-8 flex flex-col gap-10">
           
-          {/* COVER STORY (Hero) */}
-          <section className="bg-white rounded-2xl shadow-sm border border-black/5 overflow-hidden group">
-            {heroArticle.mainImage ? (
-              <div className="w-full h-64 bg-cover bg-center" style={{backgroundImage: `url(${heroArticle.mainImage.asset.url})`}}></div>
-            ) : null}
-            <div className="bg-dhakaa-primary p-8 lg:p-12 relative overflow-hidden">
-              <div className="absolute -left-10 -top-10 text-[200px] opacity-5 select-none font-serif">"</div>
-              <div className="flex items-center gap-2 mb-6">
-                <div className="w-2 h-2 bg-dhakaa-secondary rounded-full"></div>
-                <span className="text-dhakaa-secondary text-xs font-bold tracking-widest uppercase">الخبر الرئيسي</span>
-              </div>
-              <h1 className="text-dhakaa-bg text-3xl lg:text-5xl font-black mb-6 leading-tight group-hover:text-white transition-colors">
-                {heroArticle.title}
-              </h1>
-              <p className="text-dhakaa-secondary text-base lg:text-lg leading-relaxed max-w-3xl mb-8">
-                {heroArticle.excerpt}
-              </p>
+          {isCompletelyEmpty ? (
+            <div className="text-center py-20 bg-white rounded-2xl shadow-sm border border-black/5">
+              <div className="text-6xl mb-4 opacity-20">📭</div>
+              <h2 className="text-2xl font-bold text-dhakaa-dark mb-2">المجلة فارغة حالياً</h2>
+              <p className="text-dhakaa-dark/60">لم يتم نشر أي أخبار حتى الآن. يمكنك إضافة المحتوى من لوحة التحكم.</p>
             </div>
-            
-            <div className="p-8 lg:p-12 bg-white">
-              {!heroArticleData ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-                  <div>
-                    <h3 className="text-dhakaa-dark font-bold mb-4 flex items-center gap-2">
-                      <div className="w-1 h-4 bg-dhakaa-primary"></div>
-                      أبرز ما يُميّز التحديث القادم:
-                    </h3>
-                    <ul className="text-dhakaa-dark/70 text-sm leading-relaxed space-y-3">
-                      <li className="flex items-start gap-2"><div className="mt-1.5 w-1.5 h-1.5 bg-dhakaa-primary rounded-full"></div>معالجة متزامنة للنص والصورة والصوت</li>
-                      <li className="flex items-start gap-2"><div className="mt-1.5 w-1.5 h-1.5 bg-dhakaa-primary rounded-full"></div>واجهة موحدة تُلغي الحاجة لاختيار النموذج</li>
-                    </ul>
-                  </div>
-                  <div className="bg-dhakaa-bg p-6 rounded-xl border border-black/5 flex flex-col justify-center">
-                    <div className="text-xs font-bold text-dhakaa-primary mb-2">ملاحظة للنشر</div>
-                    <div className="text-lg font-black text-dhakaa-dark">يمكنك إضافة المحتوى من لوحة التحكم</div>
-                  </div>
-                </div>
-              ) : null}
-              
-              <div className="flex justify-between items-center pt-6 border-t border-black/10">
-                <span className="text-xs font-bold opacity-60">القسم: {heroArticle.category}</span>
-                <button className="flex items-center gap-2 bg-dhakaa-dark text-white text-sm px-6 py-3 rounded-full font-bold hover:bg-dhakaa-primary transition-colors">
-                  قراءة التحليل المعمّق <ChevronLeft size={16} />
-                </button>
-              </div>
-            </div>
-          </section>
-
-          {/* TOP NEWS LIST */}
-          <section>
-            <div className="flex items-center gap-3 mb-8 pb-4 border-b-2 border-dhakaa-dark">
-              <div className="w-1.5 h-6 bg-dhakaa-primary"></div>
-              <h2 className="text-2xl font-black text-dhakaa-dark">أبرز أخبار الأسبوع</h2>
-            </div>
-
-            <div className="flex flex-col gap-8">
-              {topArticles.map((article: any, i: number) => (
-                <article key={i} className="group cursor-pointer">
-                  <div className="flex flex-col sm:flex-row gap-6 items-start">
-                    <div className={`shrink-0 w-16 h-16 sm:w-24 sm:h-24 rounded-2xl flex items-center justify-center text-3xl sm:text-4xl shadow-md ${article.color} group-hover:scale-105 transition-transform duration-300`}>
-                      {article.icon}
+          ) : (
+            <>
+              {/* COVER STORY (Hero) */}
+              {hasHeroArticle && (
+                <section className="bg-white rounded-2xl shadow-sm border border-black/5 overflow-hidden group">
+                  {heroArticle.mainImage ? (
+                    <div className="w-full h-64 bg-cover bg-center" style={{backgroundImage: `url(${heroArticle.mainImage.asset.url})`}}></div>
+                  ) : null}
+                  <div className="bg-dhakaa-primary p-8 lg:p-12 relative overflow-hidden">
+                    <div className="absolute -left-10 -top-10 text-[200px] opacity-5 select-none font-serif">"</div>
+                    <div className="flex items-center gap-2 mb-6">
+                      <div className="w-2 h-2 bg-dhakaa-secondary rounded-full"></div>
+                      <span className="text-dhakaa-secondary text-xs font-bold tracking-widest uppercase">الخبر الرئيسي</span>
                     </div>
-                    <div className="flex-1 border-b border-black/10 pb-8 group-last:border-0 group-last:pb-0">
-                      <span className="inline-block text-[10px] px-3 py-1 rounded-full bg-dhakaa-dark/5 text-dhakaa-dark font-bold mb-3">{article.category}</span>
-                      <h3 className="text-dhakaa-dark text-lg sm:text-xl font-bold leading-snug mb-3 group-hover:text-dhakaa-primary transition-colors">{article.title}</h3>
-                      <p className="text-dhakaa-dark/70 text-sm leading-relaxed mb-4">{article.desc}</p>
-                      <span className="text-xs font-bold text-dhakaa-primary flex items-center gap-1 group-hover:gap-2 transition-all">
-                        اقرأ المزيد <ChevronLeft size={14} />
-                      </span>
+                    <h1 className="text-dhakaa-bg text-3xl lg:text-5xl font-black mb-6 leading-tight group-hover:text-white transition-colors">
+                      {heroArticle.title}
+                    </h1>
+                    <p className="text-dhakaa-secondary text-base lg:text-lg leading-relaxed max-w-3xl mb-8">
+                      {heroArticle.excerpt}
+                    </p>
+                  </div>
+                  
+                  <div className="p-8 lg:p-12 bg-white">
+                    <div className="flex justify-between items-center pt-6 border-t border-black/10">
+                      <span className="text-xs font-bold opacity-60">القسم: {heroArticle.category}</span>
+                      <button className="flex items-center gap-2 bg-dhakaa-dark text-white text-sm px-6 py-3 rounded-full font-bold hover:bg-dhakaa-primary transition-colors">
+                        قراءة التحليل المعمّق <ChevronLeft size={16} />
+                      </button>
                     </div>
                   </div>
-                </article>
-              ))}
-            </div>
-          </section>
+                </section>
+              )}
+
+              {/* TOP NEWS LIST */}
+              {hasTopArticles && (
+                <section>
+                  <div className="flex items-center gap-3 mb-8 pb-4 border-b-2 border-dhakaa-dark">
+                    <div className="w-1.5 h-6 bg-dhakaa-primary"></div>
+                    <h2 className="text-2xl font-black text-dhakaa-dark">أبرز أخبار الأسبوع</h2>
+                  </div>
+
+                  <div className="flex flex-col gap-8">
+                    {topArticles.map((article: any, i: number) => (
+                      <article key={i} className="group cursor-pointer">
+                        <div className="flex flex-col sm:flex-row gap-6 items-start">
+                          <div className="shrink-0 w-16 h-16 sm:w-24 sm:h-24 rounded-2xl flex items-center justify-center text-3xl sm:text-4xl shadow-md bg-dhakaa-primary/10 text-dhakaa-primary group-hover:scale-105 transition-transform duration-300">
+                            📰
+                          </div>
+                          <div className="flex-1 border-b border-black/10 pb-8 group-last:border-0 group-last:pb-0">
+                            <span className="inline-block text-[10px] px-3 py-1 rounded-full bg-dhakaa-dark/5 text-dhakaa-dark font-bold mb-3">{article.category}</span>
+                            <h3 className="text-dhakaa-dark text-lg sm:text-xl font-bold leading-snug mb-3 group-hover:text-dhakaa-primary transition-colors">{article.title}</h3>
+                            <p className="text-dhakaa-dark/70 text-sm leading-relaxed mb-4">{article.excerpt}</p>
+                            <span className="text-xs font-bold text-dhakaa-primary flex items-center gap-1 group-hover:gap-2 transition-all">
+                              اقرأ المزيد <ChevronLeft size={14} />
+                            </span>
+                          </div>
+                        </div>
+                      </article>
+                    ))}
+                  </div>
+                </section>
+              )}
+            </>
+          )}
 
         </div>
 
