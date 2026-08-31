@@ -7,36 +7,13 @@ import CurrentDate from "../../components/CurrentDate";
 export default async function Home() {
   // Fetch data from Sanity
   const breakingNewsData = await client.fetch(`*[_type == "breakingNews" && isActive == true]{title}`);
-  const heroArticleData = await client.fetch(`*[_type == "article" && isHero == true][0]{title, excerpt, slug, category, mainImage{asset->{url}}}`);
-  const topArticlesData = await client.fetch(`*[_type == "article" && isHero != true] | order(_createdAt desc)[0...4]{title, excerpt, slug, category, mainImage{asset->{url}}}`);
+  const heroArticle = await client.fetch(`*[_type == "article" && isHero == true][0]{title, excerpt, slug, category, mainImage{asset->{url}}}`);
+  const topArticles = await client.fetch(`*[_type == "article" && isHero != true] | order(_createdAt desc)[0...4]{title, excerpt, slug, category, mainImage{asset->{url}}}`);
 
-  // Fallback if empty (Requested specifically by user)
-  const defaultBreakingNews = [
-    { title: "عاجل: افتتاح برنامج خالد لريادة الأعمال ضمن قسم الريادة والابتكار في أكاديمية الباب العالي للتميز" }
-  ];
-  
-  const breakingNews = breakingNewsData && breakingNewsData.length > 0 ? breakingNewsData : defaultBreakingNews;
-  
-  const heroArticle = heroArticleData || {
-    title: "افتتاح مبهر لبرنامج خالد لريادة الأعمال في أكاديمية الباب العالي",
-    excerpt: "في احتفال كبير وبحضور رسمي، تم الإعلان رسمياً عن إطلاق مسار الريادة والأعمال الذي يهدف لبناء قادة المستقبل ودعم ابتكارات الطلبة في بيئة مجهزة بأحدث التقنيات.",
-    category: "الريادة والابتكار",
-    mainImage: { asset: { url: "/khaled-leadership.jpg" } }
-  };
-
-  const defaultTopArticles = [
-    { category: "قسم العلوم", title: "مختبرات الأكاديمية تشهد تجارب علمية مذهلة", excerpt: "جانب من النشاطات العملية الأسبوعية التي تنمي قدرات التفكير العلمي لدى طلابنا.", icon: "🔬", color: "bg-dhakaa-primary text-white", mainImage: null },
-    { category: "قسم الذكاء الاصطناعي", title: "الطلاب يبرمجون الروبوت الأول في الأكاديمية", excerpt: "نجح فريق الذكاء الاصطناعي في إتمام أول مهام الذكاء التوليدي.", icon: "💻", color: "bg-dhakaa-accent text-dhakaa-secondary", mainImage: null },
-    { category: "الأنشطة المدرسية", title: "دوري الأكاديمية ينطلق بحماس", excerpt: "الروح الرياضية تتجلى في منافسات الدوري الداخلي لكرة القدم.", icon: "🏆", color: "bg-dhakaa-dark text-white", mainImage: null },
-    { category: "إعلانات الأكاديمية", title: "مواعيد التسجيل للمنح الشاملة", excerpt: "تفاصيل التسجيل للمنح الدراسية المتاحة للطلبة المتميزين للعام القادم.", icon: "📢", color: "bg-dhakaa-secondary text-dhakaa-dark", mainImage: null }
-  ];
-
-  const topArticles = topArticlesData && topArticlesData.length > 0 ? topArticlesData : defaultTopArticles;
-
-  const hasBreakingNews = breakingNews && breakingNews.length > 0;
+  const hasBreakingNews = breakingNewsData && breakingNewsData.length > 0;
   const hasHeroArticle = !!heroArticle;
   const hasTopArticles = topArticles && topArticles.length > 0;
-  const isCompletelyEmpty = false; // Always false now because of fallbacks
+  const isCompletelyEmpty = !hasHeroArticle && !hasTopArticles;
 
   return (
     <main className="min-h-screen bg-dhakaa-bg font-cairo text-dhakaa-text selection:bg-dhakaa-primary/20">

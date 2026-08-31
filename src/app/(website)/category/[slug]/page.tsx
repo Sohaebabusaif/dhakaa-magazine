@@ -23,18 +23,6 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
     { slug: decodedSlug }
   );
 
-  // Fallback specifically for Khaled Leadership requested by user
-  const fallbackArticles = decodedSlug === "الريادة والابتكار" ? [
-    {
-      title: "افتتاح مبهر لبرنامج خالد لريادة الأعمال في أكاديمية الباب العالي",
-      excerpt: "في احتفال كبير وبحضور رسمي، تم الإعلان رسمياً عن إطلاق مسار الريادة والأعمال الذي يهدف لبناء قادة المستقبل ودعم ابتكارات الطلبة في بيئة مجهزة بأحدث التقنيات.",
-      category: "الريادة والابتكار",
-      mainImage: { asset: { url: "/khaled-leadership.jpg" } }
-    }
-  ] : [];
-
-  const displayArticles = articles && articles.length > 0 ? articles : fallbackArticles;
-
   return (
     <main className="min-h-screen bg-dhakaa-bg font-cairo text-dhakaa-text selection:bg-dhakaa-primary/20">
       
@@ -66,7 +54,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
           <h1 className="text-3xl lg:text-4xl font-black text-dhakaa-dark">{decodedSlug}</h1>
         </div>
 
-        {displayArticles.length === 0 ? (
+        {articles.length === 0 ? (
           <div className="text-center py-24 bg-white rounded-2xl shadow-sm border border-black/5">
             <div className="text-6xl mb-4 opacity-20">📭</div>
             <h2 className="text-2xl font-bold text-dhakaa-dark mb-2">هذا القسم فارغ حالياً</h2>
@@ -74,7 +62,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {displayArticles.map((article: any, i: number) => (
+            {articles.map((article: any, i: number) => (
               <article key={i} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-black/5 group cursor-pointer hover:shadow-md transition-all">
                 {article.mainImage ? (
                   <div className="w-full h-48 bg-cover bg-center" style={{backgroundImage: `url(${article.mainImage.asset.url})`}}></div>
