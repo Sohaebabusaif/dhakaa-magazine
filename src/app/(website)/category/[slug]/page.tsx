@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
 import SearchBar from "../../../../components/SearchBar";
+import CurrentDate from "../../../../components/CurrentDate";
 import { client } from "../../../../sanity/client";
 
 export const revalidate = 0; // Force dynamic rendering
@@ -45,6 +46,20 @@ export default async function CategoryPage({
   return (
     <main className="min-h-screen bg-dhakaa-bg font-cairo text-dhakaa-text selection:bg-dhakaa-primary/20">
       
+      {/* ══ TOP BAR (Desktop Only) ══ */}
+      <div className="hidden lg:block bg-black/90 text-dhakaa-secondary/80 border-b border-white/10 text-[11px]">
+        <div className="max-w-7xl mx-auto px-4 lg:px-8 py-2 flex justify-between items-center">
+          <div className="flex items-center gap-4">
+            <span>الإصدار اليومي المتجدد</span>
+            <span className="opacity-50">|</span>
+            <CurrentDate />
+          </div>
+          <div className="flex items-center gap-4">
+            <SearchBar />
+          </div>
+        </div>
+      </div>
+
       <nav className="sticky top-0 z-50 bg-dhakaa-dark text-dhakaa-secondary shadow-xl border-b border-dhakaa-primary/20">
         <div className="max-w-7xl mx-auto px-4 lg:px-8">
           <div className="flex justify-between items-center h-16">
@@ -59,7 +74,6 @@ export default async function CategoryPage({
               </Link>
             </div>
             <div className="hidden lg:flex items-center gap-6">
-              <SearchBar />
               <Link href="/" className="px-4 py-2 hover:bg-dhakaa-secondary/10 rounded-lg transition-colors flex items-center gap-2 text-sm font-bold">
                 العودة للرئيسية
               </Link>

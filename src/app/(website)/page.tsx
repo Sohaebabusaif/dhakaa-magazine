@@ -22,6 +22,20 @@ export default async function Home() {
   return (
     <main className="min-h-screen bg-dhakaa-bg font-cairo text-dhakaa-text selection:bg-dhakaa-primary/20">
       
+      {/* ══ TOP BAR (Desktop Only) ══ */}
+      <div className="hidden lg:block bg-black/90 text-dhakaa-secondary/80 border-b border-white/10 text-[11px]">
+        <div className="max-w-7xl mx-auto px-4 lg:px-8 py-2 flex justify-between items-center">
+          <div className="flex items-center gap-4">
+            <span>الإصدار اليومي المتجدد</span>
+            <span className="opacity-50">|</span>
+            <CurrentDate />
+          </div>
+          <div className="flex items-center gap-4">
+            <SearchBar />
+          </div>
+        </div>
+      </div>
+
       {/* ══ NAVBAR (Sticky) ══ */}
       <nav className="sticky top-0 z-50 bg-dhakaa-dark text-dhakaa-secondary shadow-xl border-b border-dhakaa-primary/20">
         <div className="max-w-7xl mx-auto px-4 lg:px-8">
@@ -43,26 +57,17 @@ export default async function Home() {
                   <div className="text-[9px] tracking-[4px] text-dhakaa-primary font-bold">HGA DHAKAA</div>
                 </div>
               </Link>
-              
-              {/* Desktop Tabs */}
-              <div className="hidden lg:flex items-center gap-1 text-sm font-bold">
-                <Link href="/" className="px-4 py-2 bg-dhakaa-primary text-dhakaa-bg rounded-lg">الرئيسية</Link>
-                <Link href="/category/قسم الذكاء الاصطناعي" className="px-3 py-2 hover:bg-dhakaa-secondary/10 rounded-lg transition-colors">الذكاء الاصطناعي</Link>
-                <Link href="/category/قسم العلوم" className="px-3 py-2 hover:bg-dhakaa-secondary/10 rounded-lg transition-colors">العلوم</Link>
-                <Link href="/category/الريادة والابتكار" className="px-3 py-2 hover:bg-dhakaa-secondary/10 rounded-lg transition-colors">الريادة والابتكار</Link>
-                <Link href="/category/الأنشطة المدرسية" className="px-3 py-2 hover:bg-dhakaa-secondary/10 rounded-lg transition-colors">الأنشطة</Link>
-                <Link href="/category/إعلانات الأكاديمية" className="px-3 py-2 hover:bg-dhakaa-secondary/10 rounded-lg transition-colors">الإعلانات</Link>
-                <Link href="/archive" className="px-4 py-2 hover:bg-dhakaa-secondary/10 rounded-lg transition-colors text-dhakaa-primary">الأرشيف</Link>
-              </div>
             </div>
 
-            {/* Left: Meta / Search (Desktop) */}
-            <div className="hidden lg:flex items-center gap-6">
-              <div className="text-[10px] opacity-70 text-left">
-                <div>الإصدار اليومي المتجدد</div>
-                <CurrentDate />
-              </div>
-              <SearchBar />
+            {/* Left: Desktop Tabs */}
+            <div className="hidden lg:flex items-center gap-2 text-sm font-bold">
+              <Link href="/" className="px-4 py-2 bg-dhakaa-primary text-dhakaa-bg rounded-lg">الرئيسية</Link>
+              <Link href="/category/قسم الذكاء الاصطناعي" className="px-3 py-2 hover:bg-dhakaa-secondary/10 rounded-lg transition-colors">الذكاء الاصطناعي</Link>
+              <Link href="/category/قسم العلوم" className="px-3 py-2 hover:bg-dhakaa-secondary/10 rounded-lg transition-colors">العلوم</Link>
+              <Link href="/category/الريادة والابتكار" className="px-3 py-2 hover:bg-dhakaa-secondary/10 rounded-lg transition-colors">الريادة والابتكار</Link>
+              <Link href="/category/الأنشطة المدرسية" className="px-3 py-2 hover:bg-dhakaa-secondary/10 rounded-lg transition-colors">الأنشطة</Link>
+              <Link href="/category/إعلانات الأكاديمية" className="px-3 py-2 hover:bg-dhakaa-secondary/10 rounded-lg transition-colors">الإعلانات</Link>
+              <Link href="/archive" className="px-4 py-2 hover:bg-dhakaa-secondary/10 rounded-lg transition-colors text-dhakaa-primary">الأرشيف</Link>
             </div>
           </div>
         </div>

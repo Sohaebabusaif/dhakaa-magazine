@@ -5,6 +5,7 @@ import { ChevronLeft, Calendar, User, Share2 } from "lucide-react";
 import { PortableText } from '@portabletext/react';
 import ShareButton from "../../../../components/ShareButton";
 import SearchBar from "../../../../components/SearchBar";
+import CurrentDate from "../../../../components/CurrentDate";
 import { Metadata } from 'next';
 
 export const revalidate = 0; // Force dynamic rendering
@@ -133,6 +134,20 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   return (
     <main className="min-h-screen bg-dhakaa-bg font-cairo text-dhakaa-text selection:bg-dhakaa-primary/20 pb-20">
       
+      {/* ══ TOP BAR (Desktop Only) ══ */}
+      <div className="hidden lg:block bg-black/90 text-dhakaa-secondary/80 border-b border-white/10 text-[11px]">
+        <div className="max-w-7xl mx-auto px-4 lg:px-8 py-2 flex justify-between items-center">
+          <div className="flex items-center gap-4">
+            <span>الإصدار اليومي المتجدد</span>
+            <span className="opacity-50">|</span>
+            <CurrentDate />
+          </div>
+          <div className="flex items-center gap-4">
+            <SearchBar />
+          </div>
+        </div>
+      </div>
+
       {/* ══ NAVBAR ══ */}
       <nav className="sticky top-0 z-50 bg-dhakaa-dark text-dhakaa-secondary shadow-xl border-b border-dhakaa-primary/20">
         <div className="max-w-7xl mx-auto px-4 lg:px-8">
@@ -147,7 +162,6 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             </Link>
             
             <div className="hidden lg:flex items-center gap-6">
-              <SearchBar />
               <Link href={`/category/${article.category}`} className="px-4 py-2 hover:bg-dhakaa-secondary/10 rounded-lg transition-colors items-center gap-2 text-sm font-bold">
                 العودة لقسم: {article.category}
               </Link>

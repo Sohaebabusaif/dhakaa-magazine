@@ -4,6 +4,15 @@ import Image from "next/image";
 export default function Loading() {
   return (
     <main className="min-h-screen bg-dhakaa-bg font-cairo">
+      
+      {/* ══ TOP BAR Skeleton (Desktop Only) ══ */}
+      <div className="hidden lg:block bg-black/90 text-dhakaa-secondary/80 border-b border-white/10 text-[11px] opacity-50 animate-pulse">
+        <div className="max-w-7xl mx-auto px-4 lg:px-8 py-2 flex justify-between items-center h-8">
+          <div className="w-48 h-4 bg-dhakaa-dark/30 rounded"></div>
+          <div className="w-32 h-6 bg-dhakaa-dark/30 rounded-full"></div>
+        </div>
+      </div>
+
       {/* Skeleton Navbar */}
       <nav className="sticky top-0 z-50 bg-dhakaa-dark text-dhakaa-secondary shadow-xl border-b border-dhakaa-primary/20">
         <div className="max-w-7xl mx-auto px-4 lg:px-8">
