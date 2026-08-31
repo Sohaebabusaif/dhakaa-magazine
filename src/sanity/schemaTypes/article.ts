@@ -25,11 +25,11 @@ export const articleType = {
       type: 'string',
       options: {
         list: [
-          {title: 'ذكاء اصطناعي', value: 'ذكاء اصطناعي'},
-          {title: 'تطوير', value: 'تطوير'},
-          {title: 'أبل', value: 'أبل'},
-          {title: 'أمن رقمي', value: 'أمن رقمي'},
-          {title: 'تعليم', value: 'تعليم'},
+          {title: 'قسم الذكاء الاصطناعي', value: 'قسم الذكاء الاصطناعي'},
+          {title: 'قسم العلوم', value: 'قسم العلوم'},
+          {title: 'الريادة والابتكار', value: 'الريادة والابتكار'},
+          {title: 'الأنشطة المدرسية', value: 'الأنشطة المدرسية'},
+          {title: 'إعلانات الأكاديمية', value: 'إعلانات الأكاديمية'},
         ],
       },
       validation: (rule: any) => rule.required(),

@@ -11,30 +11,30 @@ export default async function Home() {
 
   // Fallbacks if Sanity database is empty (so the design doesn't break)
   const defaultBreakingNews = [
-    { title: "Microsoft: 400 مليون جهاز Windows خرجت من الخدمة خلال 3 سنوات" },
-    { title: "OpenAI: الإعلان عن نموذج GPT-5 الصيف القادم بمميزات ثورية" },
-    { title: "Anthropic: نموذج Claude 4 يتصدر اختبارات البرمجة عالمياً" }
+    { title: "أكاديمية الباب العالي تعلن عن مسابقة الابتكار العلمي لعام 2026" },
+    { title: "بدء التسجيل للنوادي الصيفية: البرمجة، الروبوتكس، والفنون" },
+    { title: "تهنئة خاصة لطلبة التوجيهي على تحقيق مراكز متقدمة على مستوى المملكة" }
   ];
   
   const breakingNews = breakingNewsData.length > 0 ? breakingNewsData : defaultBreakingNews;
   
   const heroArticle = heroArticleData || {
-    title: "GPT-5: نهاية عصر النماذج المتفرقة — ذكاء اصطناعي واحد يسمع ويرى ويقرأ",
-    excerpt: "أعلن سام ألتمان أن OpenAI توحّد نماذجها المتعددة في نموذج موحد ضخم يُعالج النص والصورة والصوت في آنٍ واحد. GPT-5 لن يكون مجرد تطوير — بل إعادة تعريف كاملة لما يعنيه الذكاء الاصطناعي التوليدي.",
-    category: "تقنية الذكاء الاصطناعي",
-    mainImage: { asset: { url: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1200&q=80" } }
+    title: "أكاديمية الباب العالي تطلق مختبر الذكاء الاصطناعي الأول من نوعه للطلاب",
+    excerpt: "في خطوة رائدة على مستوى التعليم، افتتحت أكاديمية الباب العالي للتميز مختبرها الجديد الذي سيتيح للطلبة استكشاف وتعلم تقنيات الذكاء الاصطناعي التوليدي والبرمجة المتقدمة بأسلوب تطبيقي.",
+    category: "قسم الذكاء الاصطناعي",
+    mainImage: { asset: { url: "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1200&q=80" } }
   };
 
   const defaultTopArticles = [
-    { category: "ذكاء اصطناعي", title: "Claude 4 يتصدر: Anthropic تُطلق جيلها الرابع بقدرات برمجية استثنائية", desc: "يضم نموذجَين: Opus 4 للمهام الثقيلة، وSonnet 4 للاستخدام اليومي. GitHub اختارته رسمياً لتشغيل Copilot.", icon: "🤖", color: "bg-dhakaa-accent text-dhakaa-secondary" },
-    { category: "تطوير", title: "Google تُطلق Gemini CLI: ذكاء اصطناعي مباشر من سطر الأوامر", desc: "واجهة طرفية تُتيح للمطورين التفاعل مع Gemini 2.5 Pro مباشرةً دون واجهة رسومية، وبمستوى مجاني سخي.", icon: "💻", color: "bg-dhakaa-primary text-white" },
-    { category: "تعليم", title: "الإمارات تُلزم بتعليم الذكاء الاصطناعي من رياض الأطفال — سابقة عالمية", desc: "وزارة التربية الإماراتية اعتمدت منهجاً شاملاً يمتد من KG حتى الصف 12 لدمج الذكاء الاصطناعي في التعليم العام.", icon: "🎓", color: "bg-dhakaa-secondary text-dhakaa-dark" },
-    { category: "أبل", title: "iOS 19 وApple Intelligence: الرهان الأكبر على الذكاء الاصطناعي الخاص", desc: "Apple تكشف في WWDC 2025 عن نظام ذكاء اصطناعي يعمل محلياً على الجهاز دون الحاجة لإرسال البيانات للسحابة.", icon: "📱", color: "bg-dhakaa-dark text-white" }
+    { category: "الريادة والابتكار", title: "مشاريع الريادة الطلابية تتألق في المعرض السنوي للأكاديمية", desc: "ابتكارات طلابية مبهرة تحل مشاكل بيئية وتقنية، ومستثمرون يشيدون بمستوى الإبداع لدى طلبة الباب العالي.", icon: "💡", color: "bg-dhakaa-accent text-dhakaa-secondary" },
+    { category: "قسم العلوم", title: "تجارب علمية مذهلة في أسبوع العلوم الطلابي", desc: "قسم العلوم ينظم سلسلة من التجارب التفاعلية التي تهدف إلى تبسيط المفاهيم المعقدة وربطها بالحياة اليومية للطلاب.", icon: "🔬", color: "bg-dhakaa-primary text-white" },
+    { category: "إعلانات الأكاديمية", title: "فتح باب التسجيل المبكر للعام الدراسي القادم بميزات استثنائية", desc: "الأكاديمية تعلن عن بدء استقبال طلبات الالتحاق وتوفر منحاً للطلبة المتميزين في التكنولوجيا والعلوم.", icon: "📢", color: "bg-dhakaa-secondary text-dhakaa-dark" },
+    { category: "الأنشطة المدرسية", title: "يوم رياضي وثقافي حافل يجمع الطلاب والمعلمين", desc: "فعاليات متنوعة ومسابقات شيقة سادت فيها الروح الرياضية، وتكريم للفرق الفائزة في دوري المدرسة.", icon: "🏆", color: "bg-dhakaa-dark text-white" }
   ];
 
   const topArticles = topArticlesData.length > 0 
     ? topArticlesData.map((a: any) => ({
-        category: a.category || "أخبار",
+        category: a.category || "أخبار الأكاديمية",
         title: a.title,
         desc: a.excerpt,
         icon: "📰",
@@ -70,10 +70,11 @@ export default async function Home() {
               {/* Desktop Tabs */}
               <div className="hidden lg:flex items-center gap-1 text-sm font-bold">
                 <Link href="/" className="px-4 py-2 bg-dhakaa-primary text-dhakaa-bg rounded-lg">الرئيسية</Link>
-                <Link href="/category/ذكاء اصطناعي" className="px-4 py-2 hover:bg-dhakaa-secondary/10 rounded-lg transition-colors">ذكاء اصطناعي</Link>
-                <Link href="/category/تطوير" className="px-4 py-2 hover:bg-dhakaa-secondary/10 rounded-lg transition-colors">تطوير</Link>
-                <Link href="/category/أبل" className="px-4 py-2 hover:bg-dhakaa-secondary/10 rounded-lg transition-colors">أبل (Apple)</Link>
-                <Link href="/category/أمن رقمي" className="px-4 py-2 hover:bg-dhakaa-secondary/10 rounded-lg transition-colors">أمن رقمي</Link>
+                <Link href="/category/قسم الذكاء الاصطناعي" className="px-3 py-2 hover:bg-dhakaa-secondary/10 rounded-lg transition-colors">الذكاء الاصطناعي</Link>
+                <Link href="/category/قسم العلوم" className="px-3 py-2 hover:bg-dhakaa-secondary/10 rounded-lg transition-colors">العلوم</Link>
+                <Link href="/category/الريادة والابتكار" className="px-3 py-2 hover:bg-dhakaa-secondary/10 rounded-lg transition-colors">الريادة والابتكار</Link>
+                <Link href="/category/الأنشطة المدرسية" className="px-3 py-2 hover:bg-dhakaa-secondary/10 rounded-lg transition-colors">الأنشطة</Link>
+                <Link href="/category/إعلانات الأكاديمية" className="px-3 py-2 hover:bg-dhakaa-secondary/10 rounded-lg transition-colors">الإعلانات</Link>
                 <Link href="/archive" className="px-4 py-2 hover:bg-dhakaa-secondary/10 rounded-lg transition-colors text-dhakaa-primary">الأرشيف</Link>
               </div>
             </div>
@@ -201,7 +202,7 @@ export default async function Home() {
               محتويات العدد الأسبوعي
             </h3>
             <div className="flex flex-col gap-2">
-              {["GPT-5 يوحّد الوسائط", "Claude 4 يتصدر البرمجة", "Gemini CLI للمطورين", "Deepfake وخطر الجريمة", "ذكاء اصطناعي في التعليم", "تحذيرات الاتحاد الأوروبي"].map((item, i) => (
+              {["مختبر الذكاء الاصطناعي الجديد", "معرض الريادة الطلابي", "أسبوع العلوم والتجارب", "الأنشطة الرياضية", "مواعيد التسجيل للمنح", "تكريم أوائل الطلبة"].map((item, i) => (
                 <a href="#" key={i} className="text-sm py-2 border-b border-black/5 last:border-0 hover:text-dhakaa-primary transition-colors flex items-center gap-2">
                   <span className="text-dhakaa-primary/50 text-[10px]">■</span> {item}
                 </a>
@@ -209,18 +210,18 @@ export default async function Home() {
             </div>
           </div>
 
-          {/* Companies Index */}
+          {/* Clubs Index */}
           <div className="bg-dhakaa-accent p-6 rounded-2xl shadow-sm text-dhakaa-secondary">
             <h3 className="text-base font-black mb-6 flex items-center gap-2">
               <Building size={18} className="text-dhakaa-primary" />
-              مؤشر عقول التقنية
+              مؤشر تفاعل الأندية
             </h3>
             <div className="flex flex-col gap-4">
               {[
-                { name: "OpenAI", product: "GPT-5", status: "قيد التطوير", color: "bg-dhakaa-primary" },
-                { name: "Anthropic", product: "Claude 4", status: "متاح الآن", color: "bg-[#4CAF50]" },
-                { name: "Google", product: "Gemini 2.5", status: "متاح الآن", color: "bg-[#4CAF50]" },
-                { name: "Apple", product: "iOS 19", status: "قريباً", color: "bg-[#FFC107]" }
+                { name: "نادي العلوم", product: "مشروع الفضاء", status: "نشط", color: "bg-dhakaa-primary" },
+                { name: "نادي الروبوتكس", product: "بطولة VEX", status: "تجهيز", color: "bg-[#FFC107]" },
+                { name: "نادي المناظرات", product: "مسابقة وطنية", status: "مكتمل", color: "bg-[#4CAF50]" },
+                { name: "فريق البرمجة", product: "تطبيق المدرسة", status: "نشط", color: "bg-dhakaa-primary" }
               ].map((co, i) => (
                 <div key={i} className="bg-dhakaa-secondary/10 p-4 rounded-xl border border-dhakaa-secondary/20 flex justify-between items-center">
                   <div>
@@ -235,27 +236,27 @@ export default async function Home() {
               ))}
             </div>
             <button className="w-full mt-6 py-3 border border-dhakaa-secondary/30 rounded-xl text-xs font-bold hover:bg-dhakaa-secondary hover:text-dhakaa-dark transition-colors">
-              مقارنة شاملة بين النماذج
+              عرض كافة تفاصيل الأندية
             </button>
           </div>
 
           {/* Dangers Widget */}
           <div className="bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] p-6 rounded-2xl shadow-xl text-white border border-white/10">
             <div className="text-dhakaa-primary text-xs font-bold tracking-widest mb-3 flex items-center gap-2">
-              <AlertTriangle size={16} /> تحذير الأسبوع
+              <AlertTriangle size={16} /> تنبيه هام للطلبة
             </div>
-            <h3 className="text-base font-black leading-snug mb-3">الاتحاد الأوروبي: المراقبة بالذكاء الاصطناعي تُهدد الحقوق الأساسية</h3>
+            <h3 className="text-base font-black leading-snug mb-3">مواعيد الامتحانات النصفية تقترب</h3>
             <p className="text-xs text-white/70 leading-relaxed mb-6">
-              وكالة الحقوق الأساسية تطالب بحظر تطبيقات المراقبة التنبؤية لتضمنها تحيزاً منهجياً.
+              نذكر أبنائنا الطلبة بضرورة الاستعداد الجيد للامتحانات القادمة والالتزام بجداول المراجعة المعتمدة.
             </p>
             <div className="grid grid-cols-2 gap-3">
               <div className="bg-white/5 p-3 rounded-lg border border-white/10 text-center hover:bg-white/10 transition-colors cursor-pointer">
-                <div className="text-2xl mb-1">🎭</div>
-                <div className="text-[10px] font-bold">التزييف العميق</div>
+                <div className="text-2xl mb-1">📅</div>
+                <div className="text-[10px] font-bold">جدول الامتحانات</div>
               </div>
               <div className="bg-white/5 p-3 rounded-lg border border-white/10 text-center hover:bg-white/10 transition-colors cursor-pointer">
-                <div className="text-2xl mb-1">💼</div>
-                <div className="text-[10px] font-bold">الوظائف المهددة</div>
+                <div className="text-2xl mb-1">📚</div>
+                <div className="text-[10px] font-bold">دليل المراجعة</div>
               </div>
             </div>
           </div>
