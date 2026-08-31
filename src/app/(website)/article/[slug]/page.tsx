@@ -4,6 +4,8 @@ import Link from "next/link";
 import { ChevronLeft, Calendar, User, Share2 } from "lucide-react";
 import { PortableText } from '@portabletext/react';
 
+export const revalidate = 0; // Force dynamic rendering
+
 export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;
   const decodedSlug = decodeURIComponent(resolvedParams.slug);

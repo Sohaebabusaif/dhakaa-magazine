@@ -3,6 +3,8 @@ import Link from "next/link";
 import { ChevronLeft, Folder } from "lucide-react";
 import { client } from "../../../../sanity/client";
 
+export const revalidate = 0; // Force dynamic rendering
+
 export default async function CategoryPage({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;
   const decodedSlug = decodeURIComponent(resolvedParams.slug);

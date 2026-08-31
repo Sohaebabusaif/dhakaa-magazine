@@ -4,6 +4,8 @@ import { Share2, Mail, Globe, FileText, Copy, AlertTriangle, ShieldCheck, Trendi
 import { client } from "../../sanity/client";
 import CurrentDate from "../../components/CurrentDate";
 
+export const revalidate = 0; // Force dynamic rendering so Sanity updates show immediately
+
 export default async function Home() {
   // Fetch data from Sanity
   const breakingNewsData = await client.fetch(`*[_type == "breakingNews" && isActive == true]{title}`);
