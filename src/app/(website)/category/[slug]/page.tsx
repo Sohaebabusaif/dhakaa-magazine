@@ -16,26 +16,102 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
 
   let displayArticles = articles;
   if (!articles || articles.length === 0) {
-    displayArticles = [
-      {
-        title: `نموذج تجريبي لخبر في قسم ${decodedSlug}`,
-        excerpt: "هذا خبر افتراضي يظهر لأن القسم فارغ حالياً. يمكنك إضافة الأخبار الحقيقية من لوحة التحكم لتستبدل هذه الأخبار تلقائياً.",
-        category: decodedSlug,
-        mainImage: { asset: { url: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?auto=format&fit=crop&w=800&q=80" } }
-      },
-      {
-        title: `خبر افتراضي آخر عن ${decodedSlug}`,
-        excerpt: "يمكنك كتابة تغطية واسعة ومفصلة هنا، وبمجرد رفع الصورة في لوحة التحكم ستظهر في الأعلى.",
-        category: decodedSlug,
-        mainImage: { asset: { url: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80" } }
-      },
-      {
-        title: `تقرير أسبوعي في قسم ${decodedSlug}`,
-        excerpt: "الأرشيف وتصنيفات الأقسام تعمل الآن بشكل ديناميكي كامل وتنتظر محتواك الإبداعي.",
-        category: decodedSlug,
-        mainImage: { asset: { url: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80" } }
-      }
-    ];
+    if (decodedSlug === 'قسم الذكاء الاصطناعي') {
+      displayArticles = [
+        {
+          title: "كيف نستخدم الذكاء الاصطناعي لتحسين التحصيل الدراسي؟",
+          excerpt: "ورشة عمل تفاعلية لطلاب الأكاديمية تسلط الضوء على أدوات الذكاء الاصطناعي المساعدة في البحث العلمي وتلخيص المناهج الدراسية.",
+          category: decodedSlug,
+          _createdAt: new Date().toISOString(),
+          mainImage: { asset: { url: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800&q=80" } }
+        },
+        {
+          title: "مشروع تخرج: روبوت ذكي لمساعدة ذوي الاحتياجات الخاصة",
+          excerpt: "فريق من طلبة الذكاء الاصطناعي يبتكرون روبوتاً صغيراً يعتمد على رؤية الحاسوب لمساعدة المكفوفين في تجاوز العقبات.",
+          category: decodedSlug,
+          _createdAt: new Date(Date.now() - 86400000).toISOString(),
+          mainImage: { asset: { url: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=800&q=80" } }
+        }
+      ];
+    } else if (decodedSlug === 'قسم العلوم') {
+      displayArticles = [
+        {
+          title: "تجارب الكيمياء الممتعة: سحر التفاعلات في مختبراتنا",
+          excerpt: "طلاب قسم العلوم يبهرون الحضور في المعرض السنوي بتجارب كيميائية آمنة وملونة توضح مفاهيم التفاعل والاحتراق.",
+          category: decodedSlug,
+          _createdAt: new Date().toISOString(),
+          mainImage: { asset: { url: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=800&q=80" } }
+        },
+        {
+          title: "رحلة علمية إلى مرصد الفلك الوطني",
+          excerpt: "نظم قسم العلوم رحلة ميدانية لمراقبة النجوم والكواكب باستخدام التلسكوبات المتطورة لربط الجانب النظري بالعملي.",
+          category: decodedSlug,
+          _createdAt: new Date(Date.now() - 86400000).toISOString(),
+          mainImage: { asset: { url: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80" } }
+        }
+      ];
+    } else if (decodedSlug === 'الريادة والابتكار') {
+      displayArticles = [
+        {
+          title: "حاضنة الأعمال المدرسية تدعم 5 مشاريع طلابية ناشئة",
+          excerpt: "تم اختيار خمسة مشاريع ريادية من قبل لجنة التحكيم لتقديم الدعم المالي والتوجيهي لتحويلها إلى نماذج حقيقية.",
+          category: decodedSlug,
+          _createdAt: new Date().toISOString(),
+          mainImage: { asset: { url: "https://images.unsplash.com/photo-1556761175-4b46a572b786?auto=format&fit=crop&w=800&q=80" } }
+        },
+        {
+          title: "طالب من الأكاديمية يفوز بجائزة أصغر رائد أعمال",
+          excerpt: "تكريم الطالب أحمد لتصميمه تطبيقاً ذكياً ينظم أوقات المذاكرة ويحفز الطلاب عبر نظام مكافآت مبتكر.",
+          category: decodedSlug,
+          _createdAt: new Date(Date.now() - 86400000).toISOString(),
+          mainImage: { asset: { url: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80" } }
+        }
+      ];
+    } else if (decodedSlug === 'الأنشطة المدرسية') {
+      displayArticles = [
+        {
+          title: "اختتام فعاليات الدوري الرياضي السنوي لكرة القدم",
+          excerpt: "وسط حماس جماهيري كبير من الطلاب والمعلمين، توج فريق الصف العاشر ببطولة الدوري بعد مباراة نهائية مثيرة.",
+          category: decodedSlug,
+          _createdAt: new Date().toISOString(),
+          mainImage: { asset: { url: "https://images.unsplash.com/photo-1518605368461-1ee12db8bc55?auto=format&fit=crop&w=800&q=80" } }
+        },
+        {
+          title: "معرض الفنون التشكيلية: إبداعات بأنامل طلابية",
+          excerpt: "لوحات فنية ومجسمات إبداعية تعبر عن التراث والمستقبل في المعرض الفني الذي أقيم في الساحة الرئيسية.",
+          category: decodedSlug,
+          _createdAt: new Date(Date.now() - 86400000).toISOString(),
+          mainImage: { asset: { url: "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?auto=format&fit=crop&w=800&q=80" } }
+        }
+      ];
+    } else if (decodedSlug === 'إعلانات الأكاديمية') {
+      displayArticles = [
+        {
+          title: "جدول امتحانات منتصف الفصل الدراسي الأول 2026",
+          excerpt: "نلفت عناية أولياء الأمور والطلبة الكرام بأنه تم اعتماد ونشر جداول الامتحانات النصفية على بوابة الطالب الإلكترونية.",
+          category: decodedSlug,
+          _createdAt: new Date().toISOString(),
+          mainImage: { asset: { url: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=800&q=80" } }
+        },
+        {
+          title: "دعوة لحضور اجتماع مجلس الآباء والمعلمين الأول",
+          excerpt: "تدعوكم إدارة الأكاديمية لحضور الاجتماع التشاوري الأول لمناقشة خطط التطوير الأكاديمي والأنشطة اللامنهجية للعام الحالي.",
+          category: decodedSlug,
+          _createdAt: new Date(Date.now() - 86400000).toISOString(),
+          mainImage: { asset: { url: "https://images.unsplash.com/photo-1577563908411-5077b6dc7624?auto=format&fit=crop&w=800&q=80" } }
+        }
+      ];
+    } else {
+      displayArticles = [
+        {
+          title: `مقالات متنوعة في ${decodedSlug}`,
+          excerpt: "هذا القسم مخصص لنشر أحدث المقالات والأخبار المتعلقة بهذا التخصص. سيتم إضافة محتوى جديد قريباً.",
+          category: decodedSlug,
+          _createdAt: new Date().toISOString(),
+          mainImage: { asset: { url: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80" } }
+        }
+      ];
+    }
   }
 
   return (
