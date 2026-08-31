@@ -2,8 +2,7 @@ import { client } from "../../../sanity/client";
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronLeft, Search } from "lucide-react";
-import SearchBar from "../../../components/SearchBar";
-import CurrentDate from "../../../components/CurrentDate";
+import MainNavbar from "../../../components/MainNavbar";
 
 export const revalidate = 0;
 
@@ -14,11 +13,11 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
   let articles: any[] = [];
   
   if (query) {
-    const sanityQuery = `*[_type == "article" && (title match $keyword || excerpt match $keyword || category match $keyword)] | order(_createdAt desc){
+    const sanityQuery = `*[_type == "article" && (title match $keyword || excerpt match $keyword || category->title match $keyword)] | order(_createdAt desc){
       title,
       excerpt,
       slug,
-      category,
+      "category": category->title,
       _createdAt,
       mainImage{asset->{url}}
     }`;
@@ -27,34 +26,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
 
   return (
     <main className="min-h-screen bg-dhakaa-bg font-cairo text-dhakaa-text pb-20">
-      {/* ══ TOP BAR (Desktop Only) ══ */}
-      <div className="hidden lg:block bg-black/90 text-dhakaa-secondary/80 border-b border-white/10 text-[11px]">
-        <div className="max-w-7xl mx-auto px-4 lg:px-8 py-2 flex justify-between items-center">
-          <div className="flex items-center gap-4">
-            <span>الإصدار اليومي المتجدد</span>
-            <span className="opacity-50">|</span>
-            <CurrentDate />
-          </div>
-          <div className="flex items-center gap-4">
-            <SearchBar />
-          </div>
-        </div>
-      </div>
-
-      <nav className="bg-dhakaa-dark text-dhakaa-secondary border-b-2 border-dhakaa-primary relative z-50">
-        <div className="max-w-7xl mx-auto px-4 lg:px-8 py-3">
-          <div className="flex justify-between items-center h-16">
-            <Link href="/" className="flex items-center gap-3 cursor-pointer group">
-              <Image src="/logo.png" alt="HGA DHAKAA Logo" width={40} height={40} className="object-contain w-auto h-auto" priority />
-              <div className="flex flex-col">
-                <div className="text-xl font-black tracking-widest group-hover:text-dhakaa-primary transition-colors">
-                  ذكاء الباب العالي
-                </div>
-              </div>
-            </Link>
-          </div>
-        </div>
-      </nav>
+      <MainNavbar backLink={{ href: "/", label: "العودة للرئيسية" }} />
 
       <div className="max-w-7xl mx-auto px-4 lg:px-8 mt-12">
         <h1 className="text-3xl font-black text-dhakaa-dark mb-2 flex items-center gap-3">

@@ -1,9 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
-import SearchBar from "../../../../components/SearchBar";
-import CurrentDate from "../../../../components/CurrentDate";
 import { client } from "../../../../sanity/client";
+import MainNavbar from "../../../../components/MainNavbar";
 
 export const revalidate = 0; // Force dynamic rendering
 
@@ -25,11 +24,11 @@ export default async function CategoryPage({
   
   // Fetch articles for this category
   const articles = await client.fetch(
-    `*[_type == "article" && category == $slug] | order(_createdAt desc)[$start...$end]{
+    `*[_type == "article" && category->slug.current == $slug] | order(_createdAt desc)[$start...$end]{
       title,
       excerpt,
       slug,
-      category,
+      category->{title, slug},
       mainImage{
         asset->{
           url
@@ -39,48 +38,14 @@ export default async function CategoryPage({
     { slug: decodedSlug, start, end }
   );
 
-  const totalArticles = await client.fetch(`count(*[_type == "article" && category == $slug])`, { slug: decodedSlug });
+  const totalArticles = await client.fetch(`count(*[_type == "article" && category->slug.current == $slug])`, { slug: decodedSlug });
   const hasNextPage = end < totalArticles;
   const hasPrevPage = page > 1;
 
   return (
     <main className="min-h-screen bg-dhakaa-bg font-cairo text-dhakaa-text selection:bg-dhakaa-primary/20">
       
-      {/* ══ TOP BAR (Desktop Only) ══ */}
-      <div className="hidden lg:block bg-black/90 text-dhakaa-secondary/80 border-b border-white/10 text-[11px]">
-        <div className="max-w-7xl mx-auto px-4 lg:px-8 py-2 flex justify-between items-center">
-          <div className="flex items-center gap-4">
-            <span>الإصدار اليومي المتجدد</span>
-            <span className="opacity-50">|</span>
-            <CurrentDate />
-          </div>
-          <div className="flex items-center gap-4">
-            <SearchBar />
-          </div>
-        </div>
-      </div>
-
-      <nav className="sticky top-0 z-50 bg-dhakaa-dark text-dhakaa-secondary shadow-xl border-b border-dhakaa-primary/20">
-        <div className="max-w-7xl mx-auto px-4 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center gap-6">
-              <Link href="/" className="flex items-center gap-3 cursor-pointer group">
-                <Image src="/logo.png" alt="HGA DHAKAA Logo" width={40} height={40} className="object-contain w-auto h-auto" priority />
-                <div className="flex flex-col">
-                  <div className="text-xl font-black tracking-widest group-hover:text-dhakaa-primary transition-colors">
-                    ذكاء الباب العالي
-                  </div>
-                </div>
-              </Link>
-            </div>
-            <div className="hidden lg:flex items-center gap-6">
-              <Link href="/" className="px-4 py-2 hover:bg-dhakaa-secondary/10 rounded-lg transition-colors flex items-center gap-2 text-sm font-bold">
-                العودة للرئيسية
-              </Link>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <MainNavbar backLink={{ href: "/", label: "العودة للرئيسية" }} />
 
       <div className="max-w-5xl mx-auto px-4 lg:px-8 py-12">
         <div className="flex items-center gap-3 mb-12 border-b-2 border-dhakaa-dark pb-4">

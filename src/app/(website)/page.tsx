@@ -1,17 +1,16 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Share2, Mail, Globe, FileText, Copy, AlertTriangle, ShieldCheck, TrendingUp, Search, Menu, ChevronLeft, Building } from "lucide-react";
+import { FileText, AlertTriangle, ChevronLeft, Building, Share2, Globe, Mail, Copy } from "lucide-react";
 import { client } from "../../sanity/client";
-import CurrentDate from "../../components/CurrentDate";
-import SearchBar from "../../components/SearchBar";
+import MainNavbar from "../../components/MainNavbar";
 
 export const revalidate = 0; // Force dynamic rendering so Sanity updates show immediately
 
 export default async function Home() {
   // Fetch data from Sanity
   const breakingNewsData = await client.fetch(`*[_type == "breakingNews" && isActive == true]{title}`);
-  const heroArticle = await client.fetch(`*[_type == "article" && isHero == true][0]{title, excerpt, slug, category, mainImage{asset->{url}}}`);
-  const topArticles = await client.fetch(`*[_type == "article" && isHero != true] | order(_createdAt desc)[0...4]{title, excerpt, slug, category, mainImage{asset->{url}}}`);
+  const heroArticle = await client.fetch(`*[_type == "article" && isHero == true][0]{title, excerpt, slug, "category": category->title, mainImage{asset->{url}}}`);
+  const topArticles = await client.fetch(`*[_type == "article" && isHero != true] | order(_createdAt desc)[0...4]{title, excerpt, slug, "category": category->title, mainImage{asset->{url}}}`);
   const tocArticles = await client.fetch(`*[_type == "article"] | order(_createdAt desc)[0...6]{title, slug}`);
 
   const hasBreakingNews = breakingNewsData && breakingNewsData.length > 0;
@@ -22,56 +21,7 @@ export default async function Home() {
   return (
     <main className="min-h-screen bg-dhakaa-bg font-cairo text-dhakaa-text selection:bg-dhakaa-primary/20">
       
-      {/* ══ TOP BAR (Desktop Only) ══ */}
-      <div className="hidden lg:block bg-black/90 text-dhakaa-secondary/80 border-b border-white/10 text-[11px]">
-        <div className="max-w-7xl mx-auto px-4 lg:px-8 py-2 flex justify-between items-center">
-          <div className="flex items-center gap-4">
-            <span>الإصدار اليومي المتجدد</span>
-            <span className="opacity-50">|</span>
-            <CurrentDate />
-          </div>
-          <div className="flex items-center gap-4">
-            <SearchBar />
-          </div>
-        </div>
-      </div>
-
-      {/* ══ NAVBAR (Sticky) ══ */}
-      <nav className="sticky top-0 z-50 bg-dhakaa-dark text-dhakaa-secondary shadow-xl border-b border-dhakaa-primary/20">
-        <div className="max-w-7xl mx-auto px-4 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            {/* Right: Menu & Search (Mobile) */}
-            <div className="flex lg:hidden items-center gap-4">
-              <button><Menu size={20} /></button>
-              <button><Search size={20} /></button>
-            </div>
-
-            {/* Center/Right: Logo */}
-            <div className="flex items-center gap-6">
-              <Link href="/" className="flex items-center gap-3 cursor-pointer group">
-                <Image src="/logo.png" alt="HGA DHAKAA Logo" width={40} height={40} className="object-contain w-auto h-auto" priority />
-                <div className="flex flex-col">
-                  <div className="text-xl font-black tracking-widest group-hover:text-dhakaa-primary transition-colors">
-                    ذكاء الباب العالي
-                  </div>
-                  <div className="text-[9px] tracking-[4px] text-dhakaa-primary font-bold">HGA DHAKAA</div>
-                </div>
-              </Link>
-            </div>
-
-            {/* Left: Desktop Tabs */}
-            <div className="hidden lg:flex items-center gap-2 text-sm font-bold">
-              <Link href="/" className="px-4 py-2 bg-dhakaa-primary text-dhakaa-bg rounded-lg">الرئيسية</Link>
-              <Link href="/category/قسم الذكاء الاصطناعي" className="px-3 py-2 hover:bg-dhakaa-secondary/10 rounded-lg transition-colors">الذكاء الاصطناعي</Link>
-              <Link href="/category/قسم العلوم" className="px-3 py-2 hover:bg-dhakaa-secondary/10 rounded-lg transition-colors">العلوم</Link>
-              <Link href="/category/الريادة والابتكار" className="px-3 py-2 hover:bg-dhakaa-secondary/10 rounded-lg transition-colors">الريادة والابتكار</Link>
-              <Link href="/category/الأنشطة المدرسية" className="px-3 py-2 hover:bg-dhakaa-secondary/10 rounded-lg transition-colors">الأنشطة</Link>
-              <Link href="/category/إعلانات الأكاديمية" className="px-3 py-2 hover:bg-dhakaa-secondary/10 rounded-lg transition-colors">الإعلانات</Link>
-              <Link href="/archive" className="px-4 py-2 hover:bg-dhakaa-secondary/10 rounded-lg transition-colors text-dhakaa-primary">الأرشيف</Link>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <MainNavbar />
 
       {/* ══ BREAKING NEWS TICKER ══ */}
       {hasBreakingNews && (

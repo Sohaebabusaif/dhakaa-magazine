@@ -1,4 +1,5 @@
 import { articleType } from './article'
 import { breakingNewsType } from './breakingNews'
+import { categoryType } from './category'
 
-export const schemaTypes = [articleType, breakingNewsType]
+export const schemaTypes = [categoryType, articleType, breakingNewsType]

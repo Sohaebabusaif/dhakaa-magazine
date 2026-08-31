@@ -22,16 +22,8 @@ export const articleType = {
     {
       name: 'category',
       title: 'القسم',
-      type: 'string',
-      options: {
-        list: [
-          {title: 'قسم الذكاء الاصطناعي', value: 'قسم الذكاء الاصطناعي'},
-          {title: 'قسم العلوم', value: 'قسم العلوم'},
-          {title: 'الريادة والابتكار', value: 'الريادة والابتكار'},
-          {title: 'الأنشطة المدرسية', value: 'الأنشطة المدرسية'},
-          {title: 'إعلانات الأكاديمية', value: 'إعلانات الأكاديمية'},
-        ],
-      },
+      type: 'reference',
+      to: [{type: 'category'}],
       validation: (rule: any) => rule.required(),
     },
     {
