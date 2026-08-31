@@ -99,33 +99,35 @@ export default async function Home() {
             <>
               {/* COVER STORY (Hero) */}
               {hasHeroArticle && (
-                <section className="bg-white rounded-2xl shadow-sm border border-black/5 overflow-hidden group">
-                  {heroArticle.mainImage ? (
-                    <div className="w-full h-64 bg-cover bg-center" style={{backgroundImage: `url(${heroArticle.mainImage.asset.url})`}}></div>
-                  ) : null}
-                  <div className="bg-dhakaa-primary p-8 lg:p-12 relative overflow-hidden">
-                    <div className="absolute -left-10 -top-10 text-[200px] opacity-5 select-none font-serif">"</div>
-                    <div className="flex items-center gap-2 mb-6">
-                      <div className="w-2 h-2 bg-dhakaa-secondary rounded-full"></div>
-                      <span className="text-dhakaa-secondary text-xs font-bold tracking-widest uppercase">الخبر الرئيسي</span>
+                <Link href={`/article/${heroArticle.slug?.current}`} className="block">
+                  <section className="bg-white rounded-2xl shadow-sm border border-black/5 overflow-hidden group cursor-pointer hover:shadow-md transition-shadow">
+                    {heroArticle.mainImage ? (
+                      <div className="w-full h-64 bg-cover bg-center" style={{backgroundImage: `url(${heroArticle.mainImage.asset.url})`}}></div>
+                    ) : null}
+                    <div className="bg-dhakaa-primary p-8 lg:p-12 relative overflow-hidden">
+                      <div className="absolute -left-10 -top-10 text-[200px] opacity-5 select-none font-serif">"</div>
+                      <div className="flex items-center gap-2 mb-6">
+                        <div className="w-2 h-2 bg-dhakaa-secondary rounded-full"></div>
+                        <span className="text-dhakaa-secondary text-xs font-bold tracking-widest uppercase">الخبر الرئيسي</span>
+                      </div>
+                      <h1 className="text-dhakaa-bg text-3xl lg:text-5xl font-black mb-6 leading-tight group-hover:text-white transition-colors">
+                        {heroArticle.title}
+                      </h1>
+                      <p className="text-dhakaa-secondary text-base lg:text-lg leading-relaxed max-w-3xl mb-8">
+                        {heroArticle.excerpt}
+                      </p>
                     </div>
-                    <h1 className="text-dhakaa-bg text-3xl lg:text-5xl font-black mb-6 leading-tight group-hover:text-white transition-colors">
-                      {heroArticle.title}
-                    </h1>
-                    <p className="text-dhakaa-secondary text-base lg:text-lg leading-relaxed max-w-3xl mb-8">
-                      {heroArticle.excerpt}
-                    </p>
-                  </div>
-                  
-                  <div className="p-8 lg:p-12 bg-white">
-                    <div className="flex justify-between items-center pt-6 border-t border-black/10">
-                      <span className="text-xs font-bold opacity-60">القسم: {heroArticle.category}</span>
-                      <button className="flex items-center gap-2 bg-dhakaa-dark text-white text-sm px-6 py-3 rounded-full font-bold hover:bg-dhakaa-primary transition-colors">
-                        قراءة التحليل المعمّق <ChevronLeft size={16} />
-                      </button>
+                    
+                    <div className="p-8 lg:p-12 bg-white">
+                      <div className="flex justify-between items-center pt-6 border-t border-black/10">
+                        <span className="text-xs font-bold opacity-60">القسم: {heroArticle.category}</span>
+                        <div className="flex items-center gap-2 bg-dhakaa-dark text-white text-sm px-6 py-3 rounded-full font-bold group-hover:bg-dhakaa-primary transition-colors">
+                          قراءة التحليل المعمّق <ChevronLeft size={16} />
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </section>
+                  </section>
+                </Link>
               )}
 
               {/* TOP NEWS LIST */}
@@ -138,21 +140,23 @@ export default async function Home() {
 
                   <div className="flex flex-col gap-8">
                     {topArticles.map((article: any, i: number) => (
-                      <article key={i} className="group cursor-pointer">
-                        <div className="flex flex-col sm:flex-row gap-6 items-start">
-                          <div className="shrink-0 w-16 h-16 sm:w-24 sm:h-24 rounded-2xl flex items-center justify-center text-3xl sm:text-4xl shadow-md bg-dhakaa-primary/10 text-dhakaa-primary group-hover:scale-105 transition-transform duration-300">
-                            📰
+                      <Link href={`/article/${article.slug?.current}`} key={i} className="block group">
+                        <article className="cursor-pointer">
+                          <div className="flex flex-col sm:flex-row gap-6 items-start">
+                            <div className="shrink-0 w-16 h-16 sm:w-24 sm:h-24 rounded-2xl flex items-center justify-center text-3xl sm:text-4xl shadow-md bg-dhakaa-primary/10 text-dhakaa-primary group-hover:scale-105 transition-transform duration-300">
+                              📰
+                            </div>
+                            <div className="flex-1 border-b border-black/10 pb-8 group-last:border-0 group-last:pb-0">
+                              <span className="inline-block text-[10px] px-3 py-1 rounded-full bg-dhakaa-dark/5 text-dhakaa-dark font-bold mb-3">{article.category}</span>
+                              <h3 className="text-dhakaa-dark text-lg sm:text-xl font-bold leading-snug mb-3 group-hover:text-dhakaa-primary transition-colors">{article.title}</h3>
+                              <p className="text-dhakaa-dark/70 text-sm leading-relaxed mb-4">{article.excerpt}</p>
+                              <span className="text-xs font-bold text-dhakaa-primary flex items-center gap-1 group-hover:gap-2 transition-all">
+                                اقرأ المزيد <ChevronLeft size={14} />
+                              </span>
+                            </div>
                           </div>
-                          <div className="flex-1 border-b border-black/10 pb-8 group-last:border-0 group-last:pb-0">
-                            <span className="inline-block text-[10px] px-3 py-1 rounded-full bg-dhakaa-dark/5 text-dhakaa-dark font-bold mb-3">{article.category}</span>
-                            <h3 className="text-dhakaa-dark text-lg sm:text-xl font-bold leading-snug mb-3 group-hover:text-dhakaa-primary transition-colors">{article.title}</h3>
-                            <p className="text-dhakaa-dark/70 text-sm leading-relaxed mb-4">{article.excerpt}</p>
-                            <span className="text-xs font-bold text-dhakaa-primary flex items-center gap-1 group-hover:gap-2 transition-all">
-                              اقرأ المزيد <ChevronLeft size={14} />
-                            </span>
-                          </div>
-                        </div>
-                      </article>
+                        </article>
+                      </Link>
                     ))}
                   </div>
                 </section>

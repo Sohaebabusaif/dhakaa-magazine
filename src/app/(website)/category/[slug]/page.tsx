@@ -63,29 +63,26 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {articles.map((article: any, i: number) => (
-              <article key={i} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-black/5 group cursor-pointer hover:shadow-md transition-all">
-                {article.mainImage ? (
-                  <div className="w-full h-48 bg-cover bg-center" style={{backgroundImage: `url(${article.mainImage.asset.url})`}}></div>
-                ) : (
-                  <div className="w-full h-48 bg-dhakaa-dark/5 flex items-center justify-center">
-                    <span className="text-6xl opacity-10">📰</span>
+              <Link href={`/article/${article.slug?.current}`} key={i} className="block group">
+                <article className="bg-white rounded-2xl overflow-hidden shadow-sm border border-black/5 cursor-pointer hover:shadow-md transition-all h-full flex flex-col">
+                  {article.mainImage ? (
+                    <div className="w-full h-48 bg-cover bg-center" style={{backgroundImage: `url(${article.mainImage.asset.url})`}}></div>
+                  ) : (
+                    <div className="w-full h-48 bg-dhakaa-dark/5 flex items-center justify-center">
+                      <span className="text-6xl opacity-10">📰</span>
+                    </div>
+                  )}
+                  <div className="p-6 flex-1 flex flex-col">
+                    <h3 className="text-dhakaa-dark text-lg font-bold leading-snug mb-3 group-hover:text-dhakaa-primary transition-colors">{article.title}</h3>
+                    <p className="text-dhakaa-dark/70 text-sm leading-relaxed mb-6 flex-1">{article.excerpt}</p>
+                    <div className="flex justify-between items-center pt-4 border-t border-black/10 mt-auto">
+                      <span className="text-xs font-bold text-dhakaa-primary flex items-center gap-1 group-hover:gap-2 transition-all">
+                        اقرأ المزيد <ChevronLeft size={14} />
+                      </span>
+                    </div>
                   </div>
-                )}
-                <div className="p-6">
-                  <span className="inline-block text-[10px] px-3 py-1 rounded-full bg-dhakaa-primary/10 text-dhakaa-primary font-bold mb-3">
-                    {article.category}
-                  </span>
-                  <h3 className="text-dhakaa-dark text-lg font-bold leading-snug mb-3 group-hover:text-dhakaa-primary transition-colors line-clamp-2">
-                    {article.title}
-                  </h3>
-                  <p className="text-dhakaa-dark/70 text-sm leading-relaxed mb-4 line-clamp-3">
-                    {article.excerpt}
-                  </p>
-                  <span className="text-xs font-bold text-dhakaa-primary flex items-center gap-1 group-hover:gap-2 transition-all">
-                    اقرأ المزيد <ChevronLeft size={14} />
-                  </span>
-                </div>
-              </article>
+                </article>
+              </Link>
             ))}
           </div>
         )}
