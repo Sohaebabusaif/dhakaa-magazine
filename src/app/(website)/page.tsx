@@ -11,6 +11,7 @@ export default async function Home() {
   const breakingNewsData = await client.fetch(`*[_type == "breakingNews" && isActive == true]{title}`);
   const heroArticle = await client.fetch(`*[_type == "article" && isHero == true][0]{title, excerpt, slug, category, mainImage{asset->{url}}}`);
   const topArticles = await client.fetch(`*[_type == "article" && isHero != true] | order(_createdAt desc)[0...4]{title, excerpt, slug, category, mainImage{asset->{url}}}`);
+  const tocArticles = await client.fetch(`*[_type == "article"] | order(_createdAt desc)[0...6]{title, slug}`);
 
   const hasBreakingNews = breakingNewsData && breakingNewsData.length > 0;
   const hasHeroArticle = !!heroArticle;
@@ -178,10 +179,10 @@ export default async function Home() {
               محتويات العدد الأسبوعي
             </h3>
             <div className="flex flex-col gap-2">
-              {["مختبر الذكاء الاصطناعي الجديد", "معرض الريادة الطلابي", "أسبوع العلوم والتجارب", "الأنشطة الرياضية", "مواعيد التسجيل للمنح", "تكريم أوائل الطلبة"].map((item, i) => (
-                <a href="#" key={i} className="text-sm py-2 border-b border-black/5 last:border-0 hover:text-dhakaa-primary transition-colors flex items-center gap-2">
-                  <span className="text-dhakaa-primary/50 text-[10px]">■</span> {item}
-                </a>
+              {tocArticles && tocArticles.map((article: any, i: number) => (
+                <Link href={`/article/${article.slug?.current}`} key={i} className="text-sm py-2 border-b border-black/5 last:border-0 hover:text-dhakaa-primary transition-colors flex items-center gap-2">
+                  <span className="text-dhakaa-primary/50 text-[10px]">■</span> {article.title}
+                </Link>
               ))}
             </div>
           </div>

@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ChevronLeft, Calendar, User, Share2 } from "lucide-react";
 import { PortableText } from '@portabletext/react';
+import ShareButton from "../../../../components/ShareButton";
 
 export const revalidate = 0; // Force dynamic rendering
 
@@ -140,9 +141,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
               <Calendar size={16} className="text-dhakaa-primary" /> {formattedDate}
             </div>
           </div>
-          <button className="flex items-center gap-2 bg-dhakaa-dark/5 hover:bg-dhakaa-primary hover:text-white text-dhakaa-dark px-4 py-2 rounded-lg text-sm font-bold transition-all">
-            <Share2 size={16} /> مشاركة الخبر
-          </button>
+          <ShareButton title={article.title} />
         </div>
 
         {/* Hero Image */}
