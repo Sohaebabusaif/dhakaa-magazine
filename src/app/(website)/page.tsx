@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Share2, Mail, Globe, FileText, Copy, AlertTriangle, ShieldCheck, TrendingUp, Search, Menu, ChevronLeft, Building } from "lucide-react";
 import { client } from "../../sanity/client";
 import CurrentDate from "../../components/CurrentDate";
+import SearchBar from "../../components/SearchBar";
 
 export const revalidate = 0; // Force dynamic rendering so Sanity updates show immediately
 
@@ -61,9 +62,7 @@ export default async function Home() {
                 <div>الإصدار اليومي المتجدد</div>
                 <CurrentDate />
               </div>
-              <button className="p-2 hover:bg-dhakaa-secondary/10 rounded-full transition-colors">
-                <Search size={20} />
-              </button>
+              <SearchBar />
             </div>
           </div>
         </div>

@@ -4,9 +4,51 @@ import Link from "next/link";
 import { ChevronLeft, Calendar, User, Share2 } from "lucide-react";
 import { PortableText } from '@portabletext/react';
 import ShareButton from "../../../../components/ShareButton";
+import SearchBar from "../../../../components/SearchBar";
+import { Metadata } from 'next';
 
 export const revalidate = 0; // Force dynamic rendering
 
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const resolvedParams = await params;
+  const decodedSlug = decodeURIComponent(resolvedParams.slug);
+
+  const article = await client.fetch(
+    `*[_type == "article" && slug.current == $slug][0]{title, excerpt, mainImage{asset->{url}}}`,
+    { slug: decodedSlug }
+  );
+
+  if (!article) {
+    return { title: 'مقال غير موجود' };
+  }
+
+  const imageUrl = article.mainImage?.asset?.url || 'https://dhakaa-magazine.vercel.app/logo.png';
+
+  return {
+    title: `${article.title} | مجلة ذكاء الأسبوعية`,
+    description: article.excerpt || 'اقرأ التفاصيل الكاملة لهذا الخبر على مجلة ذكاء الأسبوعية',
+    openGraph: {
+      title: article.title,
+      description: article.excerpt,
+      url: `https://dhakaa-magazine.vercel.app/article/${decodedSlug}`,
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: article.title,
+        },
+      ],
+      type: 'article',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: article.title,
+      description: article.excerpt,
+      images: [imageUrl],
+    },
+  };
+}
 export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;
   const decodedSlug = decodeURIComponent(resolvedParams.slug);
@@ -104,9 +146,12 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
               </div>
             </Link>
             
-            <Link href={`/category/${article.category}`} className="hidden lg:flex px-4 py-2 hover:bg-dhakaa-secondary/10 rounded-lg transition-colors items-center gap-2 text-sm font-bold">
-              العودة لقسم: {article.category}
-            </Link>
+            <div className="hidden lg:flex items-center gap-6">
+              <SearchBar />
+              <Link href={`/category/${article.category}`} className="px-4 py-2 hover:bg-dhakaa-secondary/10 rounded-lg transition-colors items-center gap-2 text-sm font-bold">
+                العودة لقسم: {article.category}
+              </Link>
+            </div>
           </div>
         </div>
       </nav>

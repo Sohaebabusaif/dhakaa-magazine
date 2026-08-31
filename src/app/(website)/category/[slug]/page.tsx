@@ -1,17 +1,30 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronLeft, Folder } from "lucide-react";
+import { ChevronLeft } from "lucide-react";
+import SearchBar from "../../../../components/SearchBar";
 import { client } from "../../../../sanity/client";
 
 export const revalidate = 0; // Force dynamic rendering
 
-export default async function CategoryPage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function CategoryPage({ 
+  params,
+  searchParams
+}: { 
+  params: Promise<{ slug: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}) {
   const resolvedParams = await params;
   const decodedSlug = decodeURIComponent(resolvedParams.slug);
+  const resolvedSearchParams = await searchParams;
+  
+  const page = typeof resolvedSearchParams.page === 'string' ? parseInt(resolvedSearchParams.page) : 1;
+  const limit = 6;
+  const start = (page - 1) * limit;
+  const end = start + limit;
   
   // Fetch articles for this category
   const articles = await client.fetch(
-    `*[_type == "article" && category == $slug] | order(_createdAt desc){
+    `*[_type == "article" && category == $slug] | order(_createdAt desc)[$start...$end]{
       title,
       excerpt,
       slug,
@@ -22,8 +35,12 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
         }
       }
     }`,
-    { slug: decodedSlug }
+    { slug: decodedSlug, start, end }
   );
+
+  const totalArticles = await client.fetch(`count(*[_type == "article" && category == $slug])`, { slug: decodedSlug });
+  const hasNextPage = end < totalArticles;
+  const hasPrevPage = page > 1;
 
   return (
     <main className="min-h-screen bg-dhakaa-bg font-cairo text-dhakaa-text selection:bg-dhakaa-primary/20">
@@ -42,6 +59,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
               </Link>
             </div>
             <div className="hidden lg:flex items-center gap-6">
+              <SearchBar />
               <Link href="/" className="px-4 py-2 hover:bg-dhakaa-secondary/10 rounded-lg transition-colors flex items-center gap-2 text-sm font-bold">
                 العودة للرئيسية
               </Link>
@@ -86,6 +104,24 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
                 </article>
               </Link>
             ))}
+          </div>
+        )}
+
+        {(hasPrevPage || hasNextPage) && (
+          <div className="flex items-center justify-center gap-4 mt-12">
+            {hasPrevPage && (
+              <Link href={`/category/${decodedSlug}?page=${page - 1}`} className="px-6 py-2 bg-white text-dhakaa-primary border-2 border-dhakaa-primary rounded-xl font-bold hover:bg-dhakaa-primary hover:text-white transition-colors">
+                الصفحة السابقة
+              </Link>
+            )}
+            <div className="text-dhakaa-dark/60 font-bold">
+              صفحة {page}
+            </div>
+            {hasNextPage && (
+              <Link href={`/category/${decodedSlug}?page=${page + 1}`} className="px-6 py-2 bg-dhakaa-primary text-dhakaa-bg rounded-xl font-bold hover:bg-dhakaa-dark transition-colors">
+                تحميل المزيد
+              </Link>
+            )}
           </div>
         )}
       </div>
