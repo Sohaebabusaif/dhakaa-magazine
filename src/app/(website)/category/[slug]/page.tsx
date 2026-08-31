@@ -39,6 +39,8 @@ export default async function CategoryPage({
   );
 
   const totalArticles = await client.fetch(`count(*[_type == "article" && category->slug.current == $slug])`, { slug: decodedSlug });
+  const categoryDoc = await client.fetch(`*[_type == "category" && slug.current == $slug][0]{title}`, { slug: decodedSlug });
+  const categoryTitle = categoryDoc?.title || decodedSlug;
   const hasNextPage = end < totalArticles;
   const hasPrevPage = page > 1;
 
@@ -50,14 +52,14 @@ export default async function CategoryPage({
       <div className="max-w-5xl mx-auto px-4 lg:px-8 py-12">
         <div className="flex items-center gap-3 mb-12 border-b-2 border-dhakaa-dark pb-4">
           <div className="w-2 h-8 bg-dhakaa-primary"></div>
-          <h1 className="text-3xl lg:text-4xl font-black text-dhakaa-dark">{decodedSlug}</h1>
+          <h1 className="text-3xl lg:text-4xl font-black text-dhakaa-dark">{categoryTitle}</h1>
         </div>
 
         {articles.length === 0 ? (
           <div className="text-center py-24 bg-white rounded-2xl shadow-sm border border-black/5">
             <div className="text-6xl mb-4 opacity-20">📭</div>
             <h2 className="text-2xl font-bold text-dhakaa-dark mb-2">هذا القسم فارغ حالياً</h2>
-            <p className="text-dhakaa-dark/60">لم يتم نشر أي مقالات في قسم {decodedSlug} حتى الآن.</p>
+            <p className="text-dhakaa-dark/60">لم يتم نشر أي مقالات في قسم {categoryTitle} حتى الآن.</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

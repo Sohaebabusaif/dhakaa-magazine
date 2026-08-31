@@ -59,7 +59,13 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
     "categoryTitle": coalesce(category->title, category),
     "categorySlug": category->slug.current,
     _createdAt,
-    body,
+    body[]{
+      ...,
+      _type == "image" => {
+        ...,
+        asset->{url}
+      }
+    },
     mainImage{
       asset->{
         url
