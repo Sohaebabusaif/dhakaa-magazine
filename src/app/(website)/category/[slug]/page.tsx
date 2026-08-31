@@ -46,8 +46,8 @@ export default async function CategoryPage({
     <main className="min-h-screen bg-dhakaa-bg font-cairo text-dhakaa-text selection:bg-dhakaa-primary/20">
       
       <nav className="sticky top-0 z-50 bg-dhakaa-dark text-dhakaa-secondary shadow-xl border-b border-dhakaa-primary/20">
-        <div className="max-w-7xl mx-auto px-4 lg:px-8">
-          <div className="flex justify-between items-center h-16">
+        <div className="max-w-[1400px] mx-auto px-4 lg:px-8">
+          <div className="flex justify-between items-center h-16 gap-4">
             <div className="flex items-center gap-6">
               <Link href="/" className="flex items-center gap-3 cursor-pointer group">
                 <Image src="/logo.png" alt="HGA DHAKAA Logo" width={40} height={40} className="object-contain w-auto h-auto" priority />

@@ -21,7 +21,7 @@ export default function SearchBar() {
         placeholder="ابحث عن الأخبار..."
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        className="bg-dhakaa-dark/10 border border-dhakaa-primary/20 text-dhakaa-secondary placeholder-dhakaa-secondary/50 rounded-full py-2 px-4 pr-10 text-xs focus:outline-none focus:ring-1 focus:ring-dhakaa-primary transition-all w-32 focus:w-48 lg:w-48 lg:focus:w-64"
+        className="bg-dhakaa-dark/10 border border-dhakaa-primary/20 text-dhakaa-secondary placeholder-dhakaa-secondary/50 rounded-full py-1.5 px-4 pr-9 text-xs focus:outline-none focus:ring-1 focus:ring-dhakaa-primary transition-all w-28 focus:w-40 xl:w-40 xl:focus:w-56"
       />
       <button type="submit" className="absolute right-3 text-dhakaa-primary opacity-70 hover:opacity-100 transition-opacity">
         <Search size={16} />
