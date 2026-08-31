@@ -52,7 +52,7 @@ export default async function ArchivePage() {
               return (
                 <article key={i} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-black/5 group cursor-pointer hover:shadow-md transition-all flex flex-col sm:flex-row">
                   {article.mainImage ? (
-                    <div className="w-full sm:w-64 h-48 sm:h-auto shrink-0 bg-cover bg-center" style={{backgroundImage: \`url(\${article.mainImage.asset.url})\`}}></div>
+                    <div className="w-full sm:w-64 h-48 sm:h-auto shrink-0 bg-cover bg-center" style={{backgroundImage: `url(${article.mainImage.asset.url})`}}></div>
                   ) : (
                     <div className="w-full sm:w-64 h-48 sm:h-auto shrink-0 bg-dhakaa-dark/5 flex items-center justify-center">
                       <span className="text-4xl opacity-10">📰</span>

@@ -43,7 +43,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
             {articles.map((article: any, i: number) => (
               <article key={i} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-black/5 group cursor-pointer hover:shadow-md transition-all">
                 {article.mainImage ? (
-                  <div className="w-full h-48 bg-cover bg-center" style={{backgroundImage: \`url(\${article.mainImage.asset.url})\`}}></div>
+                  <div className="w-full h-48 bg-cover bg-center" style={{backgroundImage: `url(${article.mainImage.asset.url})`}}></div>
                 ) : (
                   <div className="w-full h-48 bg-dhakaa-dark/5 flex items-center justify-center">
                     <span className="text-6xl opacity-10">📰</span>

@@ -115,7 +115,7 @@ export default async function Home() {
           {/* COVER STORY (Hero) */}
           <section className="bg-white rounded-2xl shadow-sm border border-black/5 overflow-hidden group">
             {heroArticle.mainImage ? (
-              <div className="w-full h-64 bg-cover bg-center" style={{backgroundImage: \`url(\${heroArticle.mainImage.asset.url})\`}}></div>
+              <div className="w-full h-64 bg-cover bg-center" style={{backgroundImage: `url(${heroArticle.mainImage.asset.url})`}}></div>
             ) : null}
             <div className="bg-dhakaa-primary p-8 lg:p-12 relative overflow-hidden">
               <div className="absolute -left-10 -top-10 text-[200px] opacity-5 select-none font-serif">"</div>
