@@ -195,8 +195,8 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             <div className="text-xs font-bold text-dhakaa-primary uppercase tracking-widest mb-2">النهاية</div>
             <div className="text-2xl font-black text-dhakaa-dark">شكراً لقراءتك هذا التقرير</div>
           </div>
-          <Link href={`/category/${article.category}`} className="bg-dhakaa-dark text-white px-8 py-4 rounded-xl font-bold flex items-center gap-2 hover:bg-dhakaa-primary transition-colors w-full sm:w-auto justify-center">
-            تصفح المزيد من {article.category} <ChevronLeft size={20} />
+          <Link href={`/category/${article.category?.slug?.current || '#'}`} className="bg-dhakaa-dark text-white px-8 py-4 rounded-xl font-bold flex items-center gap-2 hover:bg-dhakaa-primary transition-colors w-full sm:w-auto justify-center">
+            تصفح المزيد من {article.category?.title || 'عام'} <ChevronLeft size={20} />
           </Link>
         </div>
       </article>
