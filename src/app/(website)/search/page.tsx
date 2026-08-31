@@ -1,8 +1,8 @@
-import { client } from "../../../../sanity/client";
+import { client } from "../../../sanity/client";
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronLeft, Search } from "lucide-react";
-import SearchBar from "../../../../components/SearchBar";
+import SearchBar from "../../../components/SearchBar";
 
 export const revalidate = 0;
 
