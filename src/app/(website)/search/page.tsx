@@ -27,8 +27,8 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
   return (
     <main className="min-h-screen bg-dhakaa-bg font-cairo text-dhakaa-text pb-20">
       <nav className="bg-dhakaa-dark text-dhakaa-secondary border-b-2 border-dhakaa-primary relative z-50">
-        <div className="max-w-[1400px] mx-auto px-4 lg:px-8 py-3">
-          <div className="flex justify-between items-center h-16 gap-4">
+        <div className="max-w-7xl mx-auto px-4 lg:px-8 py-3">
+          <div className="flex justify-between items-center h-16">
             <Link href="/" className="flex items-center gap-3 cursor-pointer group">
               <Image src="/logo.png" alt="HGA DHAKAA Logo" width={40} height={40} className="object-contain w-auto h-auto" priority />
               <div className="flex flex-col">
