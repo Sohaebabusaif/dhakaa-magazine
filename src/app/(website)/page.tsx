@@ -9,8 +9,8 @@ export const revalidate = 0; // Force dynamic rendering so Sanity updates show i
 export default async function Home() {
   // Fetch data from Sanity
   const breakingNewsData = await client.fetch(`*[_type == "breakingNews" && isActive == true]{title}`);
-  const heroArticle = await client.fetch(`*[_type == "article" && isHero == true][0]{title, excerpt, slug, "category": category->title, mainImage{asset->{url}}}`);
-  const topArticles = await client.fetch(`*[_type == "article" && isHero != true] | order(_createdAt desc)[0...4]{title, excerpt, slug, "category": category->title, mainImage{asset->{url}}}`);
+  const heroArticle = await client.fetch(`*[_type == "article" && isHero == true][0]{title, excerpt, slug, "category": coalesce(category->title, category), mainImage{asset->{url}}}`);
+  const topArticles = await client.fetch(`*[_type == "article" && isHero != true] | order(_createdAt desc)[0...4]{title, excerpt, slug, "category": coalesce(category->title, category), mainImage{asset->{url}}}`);
   const tocArticles = await client.fetch(`*[_type == "article"] | order(_createdAt desc)[0...6]{title, slug}`);
 
   const hasBreakingNews = breakingNewsData && breakingNewsData.length > 0;
@@ -77,7 +77,7 @@ export default async function Home() {
                     
                     <div className="p-8 lg:p-12 bg-white">
                       <div className="flex justify-between items-center pt-6 border-t border-black/10">
-                        <span className="text-xs font-bold opacity-60">القسم: {heroArticle.category}</span>
+                        <span className="text-xs font-bold opacity-60">القسم: {heroArticle.category || 'عام'}</span>
                         <div className="flex items-center gap-2 bg-dhakaa-dark text-white text-sm px-6 py-3 rounded-full font-bold group-hover:bg-dhakaa-primary transition-colors">
                           قراءة التحليل المعمّق <ChevronLeft size={16} />
                         </div>
@@ -104,7 +104,7 @@ export default async function Home() {
                               📰
                             </div>
                             <div className="flex-1 border-b border-black/10 pb-8 group-last:border-0 group-last:pb-0">
-                              <span className="inline-block text-[10px] px-3 py-1 rounded-full bg-dhakaa-dark/5 text-dhakaa-dark font-bold mb-3">{article.category}</span>
+                              <span className="inline-block text-[10px] px-3 py-1 rounded-full bg-dhakaa-dark/5 text-dhakaa-dark font-bold mb-3">{article.category || 'عام'}</span>
                               <h3 className="text-dhakaa-dark text-lg sm:text-xl font-bold leading-snug mb-3 group-hover:text-dhakaa-primary transition-colors">{article.title}</h3>
                               <p className="text-dhakaa-dark/70 text-sm leading-relaxed mb-4">{article.excerpt}</p>
                               <span className="text-xs font-bold text-dhakaa-primary flex items-center gap-1 group-hover:gap-2 transition-all">

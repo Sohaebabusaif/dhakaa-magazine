@@ -56,7 +56,8 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   const query = `*[_type == "article" && slug.current == $slug][0]{
     title,
     excerpt,
-    category->{title, slug},
+    "categoryTitle": coalesce(category->title, category),
+    "categorySlug": category->slug.current,
     _createdAt,
     body,
     mainImage{
@@ -133,15 +134,15 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   return (
     <main className="min-h-screen bg-dhakaa-bg font-cairo text-dhakaa-text selection:bg-dhakaa-primary/20 pb-20">
       
-      <MainNavbar backLink={{ href: `/category/${article.category?.slug?.current || '#'}`, label: `العودة لقسم: ${article.category?.title || 'عام'}` }} />
+      <MainNavbar backLink={{ href: `/category/${article.categorySlug || '#'}`, label: `العودة لقسم: ${article.categoryTitle || 'عام'}` }} />
 
       <article className="max-w-4xl mx-auto px-4 lg:px-8 mt-12">
         {/* Breadcrumb & Category */}
         <div className="flex items-center gap-3 mb-8">
           <Link href="/" className="text-dhakaa-dark/50 hover:text-dhakaa-primary text-sm font-bold transition-colors">الرئيسية</Link>
           <span className="text-dhakaa-dark/30 text-xs">/</span>
-          <Link href={`/category/${article.category}`} className="bg-dhakaa-primary/10 text-dhakaa-primary px-3 py-1 rounded-full text-xs font-black hover:bg-dhakaa-primary hover:text-white transition-colors">
-            {article.category}
+          <Link href={`/category/${article.categorySlug || '#'}`} className="bg-dhakaa-primary/10 text-dhakaa-primary px-3 py-1 rounded-full text-xs font-black hover:bg-dhakaa-primary hover:text-white transition-colors">
+            {article.categoryTitle || 'عام'}
           </Link>
         </div>
 
@@ -195,8 +196,8 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             <div className="text-xs font-bold text-dhakaa-primary uppercase tracking-widest mb-2">النهاية</div>
             <div className="text-2xl font-black text-dhakaa-dark">شكراً لقراءتك هذا التقرير</div>
           </div>
-          <Link href={`/category/${article.category?.slug?.current || '#'}`} className="bg-dhakaa-dark text-white px-8 py-4 rounded-xl font-bold flex items-center gap-2 hover:bg-dhakaa-primary transition-colors w-full sm:w-auto justify-center">
-            تصفح المزيد من {article.category?.title || 'عام'} <ChevronLeft size={20} />
+          <Link href={`/category/${article.categorySlug || '#'}`} className="bg-dhakaa-dark text-white px-8 py-4 rounded-xl font-bold flex items-center gap-2 hover:bg-dhakaa-primary transition-colors w-full sm:w-auto justify-center">
+            تصفح المزيد من {article.categoryTitle || 'عام'} <ChevronLeft size={20} />
           </Link>
         </div>
       </article>

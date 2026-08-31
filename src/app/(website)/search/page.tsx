@@ -56,7 +56,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
                     </div>
                   )}
                   <div className="absolute top-4 right-4 bg-dhakaa-primary text-dhakaa-bg px-3 py-1 rounded-full text-xs font-black shadow-lg">
-                    {article.category}
+                    {article.category || 'عام'}
                   </div>
                 </div>
                 <div className="p-6 flex flex-col flex-grow">

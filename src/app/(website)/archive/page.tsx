@@ -8,7 +8,7 @@ export const revalidate = 0; // Disable static caching for the archive so it's a
 export default async function ArchivePage() {
   // Fetch ALL articles for the archive, ordered by date
   const query = `*[_type == "article"] | order(_createdAt desc){
-    title, excerpt, slug, category, _createdAt, mainImage{asset->{url}}
+    title, excerpt, slug, "category": coalesce(category->title, category), _createdAt, mainImage{asset->{url}}
   }`;
   
   const articles = await client.fetch(query);
@@ -61,7 +61,7 @@ export default async function ArchivePage() {
                   <div className="p-6 flex-1 flex flex-col justify-center">
                     <div className="flex items-center gap-3 mb-3">
                       <span className="inline-block text-[10px] px-3 py-1 rounded-full bg-dhakaa-primary/10 text-dhakaa-primary font-bold">
-                        {article.category}
+                        {article.category || 'عام'}
                       </span>
                       <span className="text-xs text-dhakaa-dark/40 font-bold">{date}</span>
                     </div>
