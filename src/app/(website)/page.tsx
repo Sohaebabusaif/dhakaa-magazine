@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Share2, Mail, Globe, FileText, Copy, AlertTriangle, ShieldCheck, TrendingUp, Search, Menu, ChevronLeft, Building } from "lucide-react";
 import { client } from "../../sanity/client";
+import CurrentDate from "../../components/CurrentDate";
 
 export default async function Home() {
   // Fetch data from Sanity
@@ -82,8 +83,8 @@ export default async function Home() {
             {/* Left: Meta / Search (Desktop) */}
             <div className="hidden lg:flex items-center gap-6">
               <div className="text-[10px] opacity-70 text-left">
-                <div>العدد الأول · المجلد الأول</div>
-                <div className="font-bold">31 أغسطس — 6 سبتمبر 2026</div>
+                <div>الإصدار اليومي المتجدد</div>
+                <CurrentDate />
               </div>
               <button className="p-2 hover:bg-dhakaa-secondary/10 rounded-full transition-colors">
                 <Search size={20} />
