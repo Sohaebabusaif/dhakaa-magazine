@@ -172,7 +172,7 @@ async function seed() {
       const res = await client.create(article);
       console.log(`Created article: ${article.title} (ID: ${res._id})`);
     } catch (err) {
-      console.error(`Failed to create article: ${article.title}`, err.message);
+      console.error(`Failed to create article: ${article.title}`, (err as Error).message);
     }
   }
   console.log('Seeding complete!');
