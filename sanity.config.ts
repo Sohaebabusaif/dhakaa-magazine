@@ -51,6 +51,27 @@ const myStructure = (S: any) =>
       S.listItem()
         .title('الأخبار العاجلة')
         .child(S.documentTypeList('breakingNews').title('الأخبار العاجلة')),
+      S.divider(),
+      S.listItem()
+        .title('إدارة الأقسام (Categories)')
+        .child(S.documentTypeList('category').title('إدارة الأقسام')),
+      S.divider(),
+      S.listItem()
+        .title('تنبيه للطلبة (Widget)')
+        .child(
+          S.document()
+            .schemaType('studentAlert')
+            .documentId('studentAlert')
+            .title('إعدادات تنبيه الطلبة')
+        ),
+      S.listItem()
+        .title('إعدادات الموقع (Footer)')
+        .child(
+          S.document()
+            .schemaType('siteSettings')
+            .documentId('siteSettings')
+            .title('إعدادات الموقع العام')
+        ),
     ])
 
 export default defineConfig({
