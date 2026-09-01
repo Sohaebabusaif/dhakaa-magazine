@@ -2,6 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { ChevronLeft, Archive as ArchiveIcon } from "lucide-react";
 import { client } from "../../../sanity/client";
+import MainNavbar from "../../../components/MainNavbar";
+import Footer from "../../../components/Footer";
 
 export const revalidate = 0; // Disable static caching for the archive so it's always up-to-date
 
@@ -81,7 +83,7 @@ export default async function ArchivePage() {
           </div>
         )}
       </div>
-
+      <Footer />
     </main>
   );
 }

@@ -5,6 +5,7 @@ import { ChevronLeft, Calendar, User, Share2 } from "lucide-react";
 import { PortableText } from '@portabletext/react';
 import ShareButton from "../../../../components/ShareButton";
 import MainNavbar from "../../../../components/MainNavbar";
+import Footer from "../../../../components/Footer";
 import { Metadata } from 'next';
 
 export const revalidate = 0; // Force dynamic rendering
@@ -207,7 +208,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           </Link>
         </div>
       </article>
-
+      <Footer />
     </main>
   );
 }

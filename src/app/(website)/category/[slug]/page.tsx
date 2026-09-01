@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
 import { client } from "../../../../sanity/client";
 import MainNavbar from "../../../../components/MainNavbar";
+import Footer from "../../../../components/Footer";
 
 export const revalidate = 0; // Force dynamic rendering
 
@@ -106,7 +107,7 @@ export default async function CategoryPage({
           </div>
         )}
       </div>
-
+      <Footer />
     </main>
   );
 }

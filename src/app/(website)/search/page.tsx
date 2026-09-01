@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ChevronLeft, Search } from "lucide-react";
 import MainNavbar from "../../../components/MainNavbar";
+import Footer from "../../../components/Footer";
 
 export const revalidate = 0;
 
@@ -75,6 +76,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
           </div>
         )}
       </div>
+      <Footer />
     </main>
   );
 }
