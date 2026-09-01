@@ -13,6 +13,7 @@ export default async function Home() {
   const heroArticle = await client.fetch(`*[_type == "article" && isHero == true][0]{title, excerpt, slug, "category": coalesce(category->title, category), mainImage{asset->{url}}}`);
   const topArticles = await client.fetch(`*[_type == "article" && isHero != true] | order(_createdAt desc)[0...4]{title, excerpt, slug, "category": coalesce(category->title, category), mainImage{asset->{url}}}`);
   const tocArticles = await client.fetch(`*[_type == "article"] | order(_createdAt desc)[0...6]{title, slug}`);
+  const studentAlert = await client.fetch(`*[_type == "studentAlert"][0]`);
 
   const hasBreakingNews = breakingNewsData && breakingNewsData.length > 0;
   const hasHeroArticle = !!heroArticle;
@@ -172,26 +173,41 @@ export default async function Home() {
             </button>
           </div>
 
-          {/* Dangers Widget */}
-          <div className="bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] p-6 rounded-2xl shadow-xl text-white border border-white/10">
-            <div className="text-dhakaa-primary text-xs font-bold tracking-widest mb-3 flex items-center gap-2">
-              <AlertTriangle size={16} /> تنبيه هام للطلبة
-            </div>
-            <h3 className="text-base font-black leading-snug mb-3">مواعيد الامتحانات النصفية تقترب</h3>
-            <p className="text-xs text-white/70 leading-relaxed mb-6">
-              نذكر أبنائنا الطلبة بضرورة الاستعداد الجيد للامتحانات القادمة والالتزام بجداول المراجعة المعتمدة.
-            </p>
-            <div className="grid grid-cols-2 gap-3">
-              <div className="bg-white/5 p-3 rounded-lg border border-white/10 text-center hover:bg-white/10 transition-colors cursor-pointer">
-                <div className="text-2xl mb-1">📅</div>
-                <div className="text-[10px] font-bold">جدول الامتحانات</div>
+          {/* Dangers Widget - Dynamic */}
+          {(!studentAlert || studentAlert.isActive !== false) && (
+            <div className="bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] p-6 rounded-2xl shadow-xl text-white border border-white/10">
+              <div className="text-dhakaa-primary text-xs font-bold tracking-widest mb-3 flex items-center gap-2">
+                <AlertTriangle size={16} /> {studentAlert?.badgeText || 'تنبيه هام للطلبة'}
               </div>
-              <div className="bg-white/5 p-3 rounded-lg border border-white/10 text-center hover:bg-white/10 transition-colors cursor-pointer">
-                <div className="text-2xl mb-1">📚</div>
-                <div className="text-[10px] font-bold">دليل المراجعة</div>
+              <h3 className="text-base font-black leading-snug mb-3">
+                {studentAlert?.title || 'مواعيد الامتحانات النصفية تقترب'}
+              </h3>
+              <p className="text-xs text-white/70 leading-relaxed mb-6">
+                {studentAlert?.description || 'نذكر أبنائنا الطلبة بضرورة الاستعداد الجيد للامتحانات القادمة والالتزام بجداول المراجعة المعتمدة.'}
+              </p>
+              <div className="grid grid-cols-2 gap-3">
+                {studentAlert?.buttons && studentAlert.buttons.length > 0 ? (
+                  studentAlert.buttons.map((btn: any, i: number) => (
+                    <a key={i} href={btn.url || '#'} className="bg-white/5 p-3 rounded-lg border border-white/10 text-center hover:bg-white/10 transition-colors cursor-pointer block">
+                      <div className="text-2xl mb-1">{btn.icon || '🔗'}</div>
+                      <div className="text-[10px] font-bold">{btn.label}</div>
+                    </a>
+                  ))
+                ) : (
+                  <>
+                    <div className="bg-white/5 p-3 rounded-lg border border-white/10 text-center hover:bg-white/10 transition-colors cursor-pointer">
+                      <div className="text-2xl mb-1">📅</div>
+                      <div className="text-[10px] font-bold">جدول الامتحانات</div>
+                    </div>
+                    <div className="bg-white/5 p-3 rounded-lg border border-white/10 text-center hover:bg-white/10 transition-colors cursor-pointer">
+                      <div className="text-2xl mb-1">📚</div>
+                      <div className="text-[10px] font-bold">دليل المراجعة</div>
+                    </div>
+                  </>
+                )}
               </div>
             </div>
-          </div>
+          )}
 
         </aside>
       </div>
